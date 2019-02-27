@@ -65,6 +65,8 @@
     "redis": "^2.8.0",
     "redis-parser": "^3.0.0",
     "redux": "^4.0.1",
+    "redux-starter-kit": "^0.4.3",
+    "redux-thunk": "^2.3.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.1",
