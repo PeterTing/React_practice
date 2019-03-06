@@ -1,14 +1,10 @@
 import React from 'react'
-import Footer from '../Footer'
-import AddTodo from '../../containers/AddTodo'
-import VisibleTodoList from '../../containers/VisibleTodoList.js'
+import Login from '../Login'
 
 const App = ({ match: { params } }) => (
-  <div>
-    <AddTodo />
-    <VisibleTodoList filter={params.filter || 'SHOW_ALL'} />
-    <Footer />
-  </div>
+	<div style={{ height: `100%` }}>
+		<Login />
+	</div>
 )
 
 export default App

@@ -1,10 +1,10 @@
-import {
-    combineReducers
-} from 'redux'
-import todos from './todos'
-import visibilityFilter from './visibilityFilter'
+function visibilityFilter(state = "", action) {
+    switch (action.type) {
+        case "":
+            return action.filter
+        default:
+            return state
+    }
+}
 
-export default combineReducers({
-    todos,
-    visibilityFilter
-})
+export default visibilityFilter
