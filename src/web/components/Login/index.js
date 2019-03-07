@@ -2,7 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // import './style.scss'
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, TextField, FormControl, InputLabel, Input, FormControlLabel, Button, Checkbox, Paper } from '@material-ui/core';
+import { Typography, FormControlLabel, Button, Checkbox, } from '@material-ui/core';
+import StyledInput from './StyledInput'
+import { Link } from 'react-router-dom'
+
+const MyLink = props => <Link to="/TodoList" {...props} />
 
 const styles = theme => ({
     root: {
@@ -38,49 +42,15 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: `20px`
+        padding: `5px`
     },
-    input: {
-        width: `calc(100% - 40px)`,
-        height: `3vh`,
-        padding: `20px`,
-        fontSize: `1.3em`,
-        borderWidth: `0 0 1px 0`,
-
-        borderRadius: `0`,
-        color: `whitesmoke`,
-        letterSpacing: `3px`,
-        '&::placeholder': `rgb(235, 235, 235)`
+    cssLabel: {
+        color: `whiteSmoke`,
+        fontWeight: "normal",
+        fontSize: `1em`,
+        letterSpacing: `3px`
     }
 })
-
-const StyledInput = withStyles({
-    root: {
-        backgroundColor: `rgba(0, 0, 0, 0)`,
-        underLineColor: `rgba(0, 0, 0, 0)`,
-        borderRadius: 0,
-        borderWidth: `0 0 1px 0`,
-        letterSpacing: `3px`,
-        color: 'whitesmoke',
-        height: `3vh`,
-        padding: '20px'
-    }
-})(Input);
-
-// const inputProps = {
-//     width: `calc(100% - 40px)`,
-//     height: `3vh`,
-//     verticalAlign: `-webkit-baseline-middle`,
-//     padding: `20px`,
-//     fontSize: `1.3em`,
-//     borderWidth: `0 0 1px 0`,
-//     borderColor: `whitesmoke`,
-//     backgroundColor: `rgba(0, 0, 0, 0)`,
-//     borderRadius: `0`,
-//     color: `whitesmoke`,
-//     letterSpacing: `3px`,
-//     '&::placeholder': `rgb(235, 235, 235)`
-// }
 
 const Login = (props) => {
     const { classes } = props
@@ -93,39 +63,36 @@ const Login = (props) => {
             </div>
             <div className={classes.form}>
                 <form className={classes.container} noValidate>
-                    {/* <div>
-                    <input type="tel" id="user" name="user" placeholder="請輸入手機號碼" pattern="^09[0-9]{8}" required></input>
-                </div>
-                <div>
-                    <input type="password" id="pass" name="pass" placeholder="請輸入密碼"></input>
-                </div>
-                <div>
-                    <input type="submit" id="submit" value="登入"></input>
-                </div> */}
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="email" hidden>tel</InputLabel>
-                        <StyledInput className={classes.input} id="email" name="email" autoComplete="tel" placeholder="請輸入手機號碼" required />
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="password" hidden>Password</InputLabel>
-                        <StyledInput className={classes.input} name="password" type="password" id="password" autoComplete="current-password" placeholder="請輸入密碼" />
-                    </FormControl>
+                    <StyledInput type="tel" autoComplete="tel" required={true}>請輸入手機號碼</StyledInput>
+                    <StyledInput type="password" autoComplete="current-password">請輸入密碼</StyledInput>
+
                     <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
+                        control={<Checkbox value="Remember me" color="primary" style={{
+                            color: "whiteSmoke"
+                        }} />}
+                        label="記住我"
+                        classes={{
+                            label: classes.cssLabel
+                        }}
                     />
                     <Button
                         type="submit"
+                        component={MyLink}
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        style={{
+                            marginTop: '10px'
+                        }}
+                        classes={{
+                            label: classes.cssLabel
+                        }}
                     >
-                        Sign in
+                        登入
                     </Button>
                 </form>
             </div>
-
         </div>
     )
 }
