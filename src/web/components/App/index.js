@@ -1,40 +1,67 @@
 import React from 'react'
-import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import { Drawer, CssBaseline, AppBar, IconButton, Typography, Hidden } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import {StoreMallDirectory} from '@material-ui/icons'
-import TodoList from './TodoList'
+import SideBar from './SubComponent/SideBar'
+import Header from './SubComponent/Header'
 
 const styles = theme => ({
-
+	root: {
+		display: 'flex',
+		height: `100%`,
+		width: `100%`,
+		minWidth: `548px`,
+		backgroundColor: "#F7F7F7",
+		padding: 0
+	},
+	drawer: {
+		[theme.breakpoints.up('sm')]: {
+			width: drawerWidth,
+			flexShrink: 0,
+		},
+	},
+	info: {
+		width: `calc(100% - ${drawerWidth}px)`,
+		height: `calc(100% - ${appBarHeight}px)`,
+		marginTop: `${appBarHeight}px`,
+	}
 })
 
-const pages = ['首頁', '店鋪', '使用者', '容器', '配送', '中控台']
-const drawerWidth = 240;
+const drawerWidth = 240
+const appBarHeight = 64
+
+const HomePage = () => (
+	<div>
+		Home
+	</div>
+)
+
+const About = () => (
+	<div>
+		About
+	</div>
+)
 
 const App = (props) => {
 	const { classes } = props;
 
-	const drawer = (
-		<div>
-			<div className={classes.sideBar}>
-				<Divider />
-				<List>
-					{
-						['首頁', '店鋪', '使用者', '容器', '配送', '中控台'].map((page, index) => (
-							<ListItem button key={page}>
-								<ListItemIcon>{index % 6 === 1 ? <StoreMallDirectory /> : null}</ListItemIcon>
-								<ListItemText primary={page} />
-							</ListItem>
-						))
-					}
-				</List>
-			</div>
-		</div>
-	)
-
 	return (
-		<div style={{ height: `100%` }}>
-			<TodoList />
+		<div className={classes.root}>
+			<CssBaseline />
+			<Header />
+			<nav className={classes.drawer}>
+				<Hidden xsDown implementation="css">
+					<Drawer
+						variant="permanent"
+						open
+					>
+						<SideBar />
+					</Drawer>
+				</Hidden>
+				{/* <TodoList /> */}
+			</nav>
+			<div className={classes.info}>
+				jhi55
+			</div>
 		</div>
 	)
 }

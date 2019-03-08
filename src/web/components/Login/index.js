@@ -6,7 +6,7 @@ import { Typography, FormControlLabel, Button, Checkbox, } from '@material-ui/co
 import StyledInput from './StyledInput'
 import { Link } from 'react-router-dom'
 
-const MyLink = props => <Link to="/TodoList" {...props} />
+const MyLink = props => <Link to="/" {...props} />
 
 const styles = theme => ({
     root: {
