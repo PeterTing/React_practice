@@ -1,3 +1,5 @@
+import { CHANGE_PAGE } from './types.js'
+
 function makeActionCreator(type, ...argNames) {
     return function (...args) {
         const action = { type }
@@ -9,6 +11,5 @@ function makeActionCreator(type, ...argNames) {
 }
 
 
-export const CHANGE_PAGE = 'CHANGE_PAGE'
 
 export const changePage = makeActionCreator(CHANGE_PAGE, 'page')

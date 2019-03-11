@@ -4,18 +4,18 @@ import { StoreMallDirectory, SupervisorAccount, InsertInvitation, LocalDrink, Lo
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-	toolbar: theme.mixins.toolbar,
-	img: {
-		width: `100%`,
-		height: `${imgHeight}px`,
-		backgroundColor: "#40B9D8"
-	}
+    toolbar: theme.mixins.toolbar,
+    img: {
+        width: `100%`,
+        height: `${imgHeight}px`,
+        backgroundColor: "#40B9D8"
+    }
 })
 const pages = ['首頁', '店鋪', '活動', '使用者', '容器', '配送', '中控台']
 const imgHeight = 120
 
 const SideBar = (props) => {
-    const { classes } = props
+    const { classes, onClick, selectedPage } = props
 
     return (
         <div>
@@ -25,7 +25,7 @@ const SideBar = (props) => {
                 <List>
                     {
                         pages.map((page, index) => (
-                            <ListItem button key={page}>
+                            <ListItem button onClick={() => onClick(page)} selected={selectedPage === page} key={page}>
                                 <ListItemIcon>{index % 6 === 0 ? <Home /> :
                                     index % 6 === 1 ? <StoreMallDirectory /> :
                                         index % 6 === 2 ? <InsertInvitation /> :
@@ -42,6 +42,6 @@ const SideBar = (props) => {
             </div>
         </div>
     )
-} 
+}
 
 export default withStyles(styles)(SideBar)

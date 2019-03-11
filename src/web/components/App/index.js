@@ -1,8 +1,15 @@
 import React from 'react'
-import { Drawer, CssBaseline, AppBar, IconButton, Typography, Hidden } from '@material-ui/core'
+import { Drawer, CssBaseline, Hidden } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import SideBar from './SubComponent/SideBar'
+import SideBarAction from '../../containers/SideBarAction'
 import Header from './SubComponent/Header'
+import Home from './Subpage/Home'
+import Container from './Subpage/Container'
+import Store from './Subpage/Store'
+import TodoList from './Subpage/TodoList'
+import User from './Subpage/User'
+import Console from './Subpage/Console'
+import Activity from './Subpage/Activity'
 
 const styles = theme => ({
 	root: {
@@ -54,13 +61,14 @@ const App = (props) => {
 						variant="permanent"
 						open
 					>
-						<SideBar />
+						<SideBarAction />
 					</Drawer>
 				</Hidden>
 				{/* <TodoList /> */}
 			</nav>
 			<div className={classes.info}>
-				jhi55
+				{/* render different page based on side bar */}
+				<Home />
 			</div>
 		</div>
 	)

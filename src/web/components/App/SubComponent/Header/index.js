@@ -6,28 +6,27 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     appBar: {
-		marginLeft: drawerWidth,
-		flexDirection: `row`,
-		alignItems: `center`,
-		backgroundColor: '#919191',
-		height: `${appBarHeight}px`,
-		[theme.breakpoints.up('xs')]: {
-			width: `calc(100% - ${drawerWidth}px)`,
-			transition: `0.2s`
-		},
-		[theme.breakpoints.down('xs')]: {
-			width: `100%`,
-			transition: `0.2s`
-		},
+			flexDirection: `row`,
+			alignItems: `center`,
+			backgroundColor: '#919191',
+			height: `${appBarHeight}px`,
+			[theme.breakpoints.up('xs')]: {
+				width: `calc(100% - ${drawerWidth}px)`,
+				transition: `0.2s`
+			},
+			[theme.breakpoints.down('xs')]: {
+				width: `100%`,
+				transition: `0.2s`
+			},
     },
     grow: {
-		flexGrow: 1
+			flexGrow: 1
     },
     userInfo: {
-		color: 'whiteSmoke',
+			color: 'whiteSmoke',
     },
     iconButton: {
-		color: 'whiteSmoke'
+			color: 'whiteSmoke'
 	},
 })
 
