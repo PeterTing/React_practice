@@ -52,6 +52,7 @@ const App = (props) => {
 	const { classes } = props;
 
 	return (
+		/* <Router> */
 		<div className={classes.root}>
 			<CssBaseline />
 			<Header />
@@ -64,13 +65,30 @@ const App = (props) => {
 						<SideBarAction />
 					</Drawer>
 				</Hidden>
-				{/* <TodoList /> */}
+				{/* <TodoList />
+				
+				<Link to="/path">PageName</Link>
+				.....
+				.....
+				
+				*/}
 			</nav>
 			<div className={classes.info}>
-				{/* render different page based on side bar */}
+				{/* render different page based on side bar 
+				
+				<Route
+					path='path'
+					exact={isCurrentSection}
+					component={<Page></Page>}
+				/>
+				.....
+				.....
+
+				*/}
 				<Home />
 			</div>
 		</div>
+		/* </Router>
 	)
 }
 
