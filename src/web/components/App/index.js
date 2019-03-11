@@ -1,15 +1,11 @@
 import React from 'react'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+
 import { Drawer, CssBaseline, Hidden } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import SideBarAction from '../../containers/SideBarAction'
 import Header from './SubComponent/Header'
-import Home from './Subpage/Home'
-import Container from './Subpage/Container'
-import Store from './Subpage/Store'
-import TodoList from './Subpage/TodoList'
-import User from './Subpage/User'
-import Console from './Subpage/Console'
-import Activity from './Subpage/Activity'
+import { router } from './router'
 
 const styles = theme => ({
 	root: {
@@ -33,44 +29,36 @@ const styles = theme => ({
 	}
 })
 
+
 const drawerWidth = 240
 const appBarHeight = 64
-
-const HomePage = () => (
-	<div>
-		Home
-	</div>
-)
-
-const About = () => (
-	<div>
-		About
-	</div>
-)
 
 const App = (props) => {
 	const { classes } = props;
 
 	return (
-		<div className={classes.root}>
-			<CssBaseline />
-			<Header />
-			<nav className={classes.drawer}>
-				<Hidden xsDown implementation="css">
-					<Drawer
-						variant="permanent"
-						open
-					>
-						<SideBarAction />
-					</Drawer>
-				</Hidden>
-				{/* <TodoList /> */}
-			</nav>
-			<div className={classes.info}>
-				{/* render different page based on side bar */}
-				<Home />
+		<Router>
+			<div className={classes.root}>
+				<CssBaseline />
+				<Header />
+				<nav className={classes.drawer}>
+					<Hidden xsDown implementation="css">
+						<Drawer
+							variant="permanent"
+							open
+						>
+							<SideBarAction />
+						</Drawer>
+					</Hidden>
+					{/* <TodoList /> */}
+				</nav>
+				<div className={classes.info}>
+					<Switch>
+						{router.map((route, index) => <Route key={index} exact path={route.path} component={route.component} />)}
+					</Switch>
+				</div>
 			</div>
-		</div>
+		</Router>
 	)
 }
 

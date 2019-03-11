@@ -4,7 +4,6 @@ import SideBar from '../../components/App/SubComponent/SideBar'
 import { changePage } from '../../actions'
 
 const mapStateToProps = state => {
-    console.log(state.currentPage)
     return {
         selectedPage: state.currentPage
     }
