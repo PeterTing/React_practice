@@ -11,7 +11,7 @@ const theme = createMuiTheme({
     typography: {
         // Use the system font.
         fontFamily:
-            "Roboto, Noto Sans TC"
+            "\"Noto Sans TC\", \"Roboto\", \"Helvetica\", \"Arial\""
     },
     palette: {
         primary: {

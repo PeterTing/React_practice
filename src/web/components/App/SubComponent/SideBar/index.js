@@ -1,25 +1,35 @@
 import React from 'react'
-import { List, ListItem, ListItemIcon, ListItemText, CssBaseline, Typography, } from '@material-ui/core'
-import { StoreMallDirectory, SupervisorAccount, InsertInvitation, LocalDrink, LocalShipping, Home, Build } from '@material-ui/icons'
+import { List, ListItem, ListItemIcon, ListItemText, CssBaseline, Typography, Collapse } from '@material-ui/core'
+import { StoreMallDirectory, SupervisorAccount, InsertInvitation, LocalDrink, Assignment, Home, Build, StarBorder } from '@material-ui/icons'
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
 import { PAGE } from '../../../../actions/types';
+import SubItem from './SubItem'
 
 const styles = theme => ({
-    toolbar: theme.mixins.toolbar,
+    toolbar: {
+        maxWidth: `240px`
+    },
     img: {
-        width: `auto`,
+        width: `240px`,
         height: `${imgHeight}px`,
         backgroundColor: "#40B9D8"
+    },
+    item: {
+        flexDirection: 'column',
+        alignItems: 'flex-start'
+    },
+    itemComponent: {
+        display: "flex",
     }
 })
 const pages = ['首頁', '店鋪', '活動', '使用者', '容器', '代辦清單', '中控台']
-const pagesInEnglist = [PAGE.HOME, PAGE.STORE, PAGE.ACTIVITY, PAGE.USER, PAGE.CONTAINER, PAGE.TODOLIST, PAGE.CONSOLE]
+const pagesInEnglish = [PAGE.HOME, PAGE.STORE, PAGE.ACTIVITY, PAGE.USER, PAGE.CONTAINER, PAGE.TODOLIST, PAGE.CONSOLE]
 const imgHeight = 120
 
 
 const SideBar = (props) => {
-    const { classes, onClick, selectedPage } = props
+    const { classes, onClick, isOpen } = props
 
     return (
         <div>
@@ -28,19 +38,25 @@ const SideBar = (props) => {
                 <div className={classes.img}>
                     <img src={require('../../../../../../public/img/mini_logo.svg')} alt="logo"></img>
                 </div>
-                <List>
+                <List component="div">
                     {
                         pages.map((page, index) => (
-                            <ListItem button component={Link} to={`/${pagesInEnglist[index]}`} onClick={() => onClick(page)} selected={selectedPage === page} key={page}>
-                                <ListItemIcon>{index % 6 === 0 ? <Home /> :
-                                    index % 6 === 1 ? <StoreMallDirectory /> :
-                                        index % 6 === 2 ? <InsertInvitation /> :
-                                            index % 6 === 3 ? <SupervisorAccount /> :
-                                                index % 6 === 4 ? <LocalDrink /> :
-                                                    index % 6 === 5 ? <LocalShipping /> : <Build />
+                            <ListItem button component={Link} to={`/${pagesInEnglish[index]}`} onClick={() => onClick(pagesInEnglish[index])(isOpen)} key={page} className={classes.item}>
+                                <div className={classes.itemComponent}>
+                                    <ListItemIcon>{index === 0 ? <Home /> :
+                                        index === 1 ? <StoreMallDirectory /> :
+                                            index === 2 ? <InsertInvitation /> :
+                                                index === 3 ? <SupervisorAccount /> :
+                                                    index === 4 ? <LocalDrink /> :
+                                                        index === 5 ? <Assignment /> : <Build />
+                                    }
+                                    </ListItemIcon>
+                                    <ListItemText inset primary={page} />
+                                </div>
+
+                                {index === 5 ?
+                                    < SubItem isOpen={isOpen} /> : null
                                 }
-                                </ListItemIcon>
-                                <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#262626' }}>{page}</Typography>} />
                             </ListItem>
                         ))
                     }

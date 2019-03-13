@@ -9,3 +9,5 @@ export const PAGE = Object.freeze({
     CONSOLE: "console",
     ACTIVITY: "activity"
 })
+
+export const TODO_TOGGLE = 'TODO_TOGGLE'

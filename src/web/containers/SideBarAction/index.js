@@ -1,18 +1,20 @@
 import { connect } from 'react-redux'
 
 import SideBar from '../../components/App/SubComponent/SideBar'
-import { changePage } from '../../actions'
+import { changePage, todoToggle } from '../../actions'
 
 const mapStateToProps = state => {
     return {
-        selectedPage: state.currentPage
+        isOpen: state.todoListItemState.isOpen
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        onClick: page => {
+        onClick: page => isOpen => {
             dispatch(changePage(page))
+            if (page === 'todoList')
+                dispatch(todoToggle(!isOpen))
         }
     }
 }

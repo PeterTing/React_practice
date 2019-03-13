@@ -19,13 +19,13 @@ const styles = theme => ({
 	drawer: {
 		[theme.breakpoints.up('sm')]: {
 			width: drawerWidth,
-			flexShrink: 0,
 		},
 	},
 	info: {
+		position: 'relative',
 		width: `calc(100% - ${drawerWidth}px)`,
 		height: `calc(100% - ${appBarHeight}px)`,
-		marginTop: `${appBarHeight}px`,
+		top: `${appBarHeight}px`,
 	}
 })
 
