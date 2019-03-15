@@ -13,10 +13,10 @@ const styles = theme => ({
 		marginRight: theme.spacing.unit * 2,
 		marginLeft: theme.spacing.unit * 5,
 		width: `auto`,
-		height: '51.19px',
+		height: '80px',
 	},
 	searchIcon: {
-		width: theme.spacing.unit * 5,
+		width: theme.spacing.unit * 8,
 		justifyContent: 'flex-end'
 	},
 	inputRoot: {
@@ -24,14 +24,14 @@ const styles = theme => ({
 		width: '428px'
 	},
 	inputInput: {
-		paddingLeft: theme.spacing.unit,
+		paddingLeft: theme.spacing.unit * 4,
 		paddingTop: theme.spacing.unit,
 		paddingRight: theme.spacing.unit,
 		paddingBottom: theme.spacing.unit,
 		transition: theme.transitions.create('width'),
 		width: '100%',
 		'&::placeholder': {
-			fontSize: `15px`
+			fontSize: `22px`
 		}
 	},
 })

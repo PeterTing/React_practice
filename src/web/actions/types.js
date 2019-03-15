@@ -11,3 +11,4 @@ export const PAGE = Object.freeze({
 })
 
 export const TODO_TOGGLE = 'TODO_TOGGLE'
+export const ADD_TOGGLE = 'ADD_TOGGLE'

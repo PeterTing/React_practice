@@ -5,7 +5,7 @@ import { changePage, todoToggle } from '../../actions'
 
 const mapStateToProps = state => {
     return {
-        isOpen: state.todoListItemState.isOpen
+        isOpen: state.todoList.todoListItemState.isOpen
     }
 }
 

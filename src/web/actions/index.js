@@ -1,4 +1,4 @@
-import { CHANGE_PAGE, TODO_TOGGLE } from './types.js'
+import { CHANGE_PAGE, TODO_TOGGLE, ADD_TOGGLE } from './types.js'
 
 function makeActionCreator(type, ...argNames) {
     return function (...args) {
@@ -14,3 +14,4 @@ function makeActionCreator(type, ...argNames) {
 
 export const changePage = makeActionCreator(CHANGE_PAGE, 'page')
 export const todoToggle = makeActionCreator(TODO_TOGGLE, 'isOpen')
+export const addToggle = makeActionCreator(ADD_TOGGLE, 'isOpen')

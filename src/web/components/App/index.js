@@ -16,22 +16,50 @@ const styles = theme => ({
 		backgroundColor: "#F7F7F7",
 		padding: 0
 	},
-	drawer: {
+	right_block: {
+		width: `calc(100% - ${drawerWidth}px)`,
+		height: `100%`,
 		[theme.breakpoints.up('sm')]: {
-			width: drawerWidth,
+			width: `calc(100% - ${drawerWidth}px)`,
+			transition: `0.2s`
 		},
+		[theme.breakpoints.down('sm')]: {
+			width: `100%`,
+			transition: `0.2s`
+		},
+	},
+	header: {
+		display: 'flex',
+		flexDirection: 'row',
+		height: `${appBarHeight}px`,
+		width: `100%`
+	},
+	drawer: {
+		height: `100%`,
+		[theme.breakpoints.up('sm')]: {
+			width: `${drawerWidth}px`,
+			flexShrink: 0,
+		},
+		[theme.breakpoints.down('sm')]: {
+			width: `0px`,
+			transition: `0.2s`
+		},
+	},
+	drawerPaper: {
+		width: `${drawerWidth}px`
 	},
 	info: {
 		position: 'relative',
-		width: `calc(100% - ${drawerWidth}px)`,
+		width: `100%`,
 		height: `calc(100% - ${appBarHeight}px)`,
 		top: `${appBarHeight}px`,
+		paddingBottom: '50px'
 	}
 })
 
 
-const drawerWidth = 240
-const appBarHeight = 64
+const drawerWidth = 440
+const appBarHeight = 120
 
 const App = (props) => {
 	const { classes } = props;
@@ -40,9 +68,8 @@ const App = (props) => {
 		<Router>
 			<div className={classes.root}>
 				<CssBaseline />
-				<Header />
 				<nav className={classes.drawer}>
-					<Hidden xsDown implementation="css">
+					<Hidden smDown implementation="css">
 						<Drawer
 							variant="permanent"
 							open
@@ -52,10 +79,13 @@ const App = (props) => {
 					</Hidden>
 					{/* <TodoList /> */}
 				</nav>
-				<div className={classes.info}>
-					<Switch>
-						{router.map((route, index) => <Route key={index} exact path={route.path} component={route.component} />)}
-					</Switch>
+				<div className={classes.right_block}>
+					<Header />
+					<div className={classes.info}>
+						<Switch>
+							{router.map((route, index) => <Route key={index} exact path={route.path} component={route.component} />)}
+						</Switch>
+					</div>
 				</div>
 			</div>
 		</Router>

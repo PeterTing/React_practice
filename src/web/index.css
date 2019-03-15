@@ -12,11 +12,13 @@ body,
 .mdl-textfield__input,
 .mdl-button {
   font-family: "Roboto", "Noto Sans TC", sans-serif;
+  overflow: auto;
 }
 
 html,
 body,
 div#root {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
   background-color: #40B9D8
 }

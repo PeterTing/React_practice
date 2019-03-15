@@ -1,66 +1,67 @@
 import React from 'react'
-import { AppBar, IconButton, Typography} from '@material-ui/core'
+import { AppBar, IconButton, Typography } from '@material-ui/core'
 import SearchField from '../SearchField'
 import { MoreVert, AccountCircle, } from '@material-ui/icons'
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-    appBar: {
-			flexDirection: `row`,
-			alignItems: `center`,
-			backgroundColor: '#919191',
-			height: `${appBarHeight}px`,
-			[theme.breakpoints.up('xs')]: {
-				width: `calc(100% - ${drawerWidth}px)`,
-				transition: `0.2s`
-			},
-			[theme.breakpoints.down('xs')]: {
-				width: `100%`,
-				transition: `0.2s`
-			},
-    },
-    grow: {
-			flexGrow: 1
-    },
-    userInfo: {
-			color: 'whiteSmoke',
-    },
-    iconButton: {
-			color: 'whiteSmoke'
+	appBar: {
+		display: 'flex',
+		flexDirection: 'row',
+		height: `${appBarHeight}px`,
+		alignItems: `center`,
+		backgroundColor: '#919191',
+		[theme.breakpoints.up('sm')]: {
+			width: `calc(100% - ${drawerWidth}px)`,
+			transition: `0.2s`
+		},
+		[theme.breakpoints.down('sm')]: {
+			width: `100%`,
+			transition: `0.2s`
+		},
+	},
+	grow: {
+		flexGrow: 1
+	},
+	userInfo: {
+		color: 'whiteSmoke',
+	},
+	iconButton: {
+		color: 'whiteSmoke'
 	},
 })
 
-const drawerWidth = 240
-const appBarHeight = 64
+const drawerWidth = 440
+const appBarHeight = 120
 
 const Header = (props) => {
-    const { classes } = props
+	const { classes } = props
 
-    return (
-        <AppBar position="fixed" className={classes.appBar}>
-				<SearchField />
-				<div className={classes.grow} />
+	return (
+		<AppBar position="fixed" className={classes.appBar}>
+			<SearchField />
+			<div className={classes.grow} />
 
-				<IconButton
-					color="inherit"
-					aria-label="Open drawer"
-					className={classes.userInfo}
-				>
-					<AccountCircle />
-				</IconButton>
+			<IconButton
+				color="inherit"
+				aria-label="Open drawer"
+				className={classes.userInfo}
+			>
+				<AccountCircle />
+			</IconButton>
 
-				<Typography variant="subtitle2" noWrap className={classes.userInfo}>
-					0905-519-292
-				</Typography>
+			<Typography variant="h6" noWrap className={classes.userInfo}>
+				0905-519-292
+			</Typography>
 
-				<IconButton
-					aria-label="Open drawer"
-					className={classes.iconButton}
-				>
-					<MoreVert />
-				</IconButton>
-			</AppBar>
-    )
+			<IconButton
+				aria-label="Open drawer"
+				className={classes.iconButton}
+			>
+				<MoreVert />
+			</IconButton>
+		</AppBar>
+	)
 }
 
 export default withStyles(styles)(Header)

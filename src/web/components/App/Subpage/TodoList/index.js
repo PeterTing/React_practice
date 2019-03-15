@@ -1,10 +1,14 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Fab } from '@material-ui/core';
+import Todo from './todo'
+import ContainerInfo from './ContainerInfo'
+import { Add } from '@material-ui/icons';
 
 const styles = theme => ({
     root: {
-        width: `100%`
+        width: `100%`,
+        height: `100%`,
     },
     header: {
         height: `96px`,
@@ -22,64 +26,109 @@ const styles = theme => ({
     todos_title: {
         borderBottom: "1px solid #E0E0E0"
     },
-    containers_title: {
-
+    first_block: {
+        borderBottom: "1px solid #E0E0E0",
+        borderWidth: "thin",
+        height: '40px',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: "row",
+        justifyContent: 'start'
     },
     subTitle: {
-        display: 'inline-block',
-        width: "40%",
-        paddingTop: `50px`,
-        paddingLeft: `10px`,
+        position: 'relative',
+        height: '28px',
+        width: "auto",
+        paddingTop: `5px`,
         fontSize: `18px`,
         fontWeight: `500`,
         letterSpacing: `1px`,
-        lineHeight: `24px`,
-        color: `#ABABAB`
+        lineHeight: `18px`,
+        color: `#ABABAB`,
+        textAlign: 'start',
     },
     subTitle_right: {
+        position: 'relative',
         display: 'inline-block',
-        width: "16%",
-        paddingTop: `50px`,
-        paddingLeft: `10px`,
         fontSize: `18px`,
         fontWeight: `500`,
         letterSpacing: `1px`,
-        lineHeight: `24px`,
-        color: `#ABABAB`
+        color: `#ABABAB`,
+        textAlign: 'end',
+    },
+    right_block: {
+        paddingTop: '1px',
+        position: 'relative',
+        height: '28px',
+        width: "60%",
+    },
+    second_block: {
+        height: '100%',
+        width: '100%',
+        position: 'relative',
+    },
+    add_button: {
+        display: 'block',
+        position: 'fixed',
+        right: '41px',
+        bottom: '24px'
     }
 })
 
+const subTitleRight = ["總量", "已裝箱", "待裝箱"]
+
 const TodoList = (props) => {
-    const { classes } = props
+    const { classes} = props
 
     return (
         <div className={classes.root}>
-            <Grid container direction="row" spacing={5}>
-                <Grid item xs={12}>
+            <Grid container direction="row">
+                <Grid item md={12} style={{ height: "96px" }}>
                     <Typography variant="h1" className={classes.title}>今日工事</Typography>
                 </Grid >
-                <Grid container item xs={6}>
-                    <Grid item xs={2}></Grid>
-                    <Grid direction="column" item xs={8} style={{ borderBottom: "1px solid #E0E0E0", borderWidth: "thin" }}>
-                        <Typography className={classes.subTitle}>配送單</Typography>
+                <Grid container item md={12} lg={6} style={{ height: `100%`, backgroundColor: "#F7F7F7" }}>
+                    <Grid item xs={1}></Grid>
+                    <Grid container direction="column" item xs={10} className={classes.first_block}>
+                        <Typography className={classes.subTitle} style={{ paddingLeft: "10px", width: "50%" }}>配送單</Typography>
                         <Typography className={classes.subTitle}>狀態</Typography>
                     </Grid>
-                    <Grid item xs={2}></Grid>
-                    {/* <Typography variant="h1" className={classes.todos_title}>今日工事</Typography> */}
+                    <Grid item xs={1}></Grid>
+                    <div className={classes.second_block}>
+                        <Grid container direction="row">
+                            <Grid item xs={1}></Grid>
+                            <Grid container direction="column" item xs={10}>
+                                <Todo />
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={1}></Grid>
+                    </div>
                 </Grid>
-                <Grid item xs={6}>
-                    <Grid item xs={2}></Grid>
-                    <Grid direction="column" item xs={8} style={{ borderBottom: "1px solid #E0E0E0", borderWidth: "thin" }}>
-                        <Typography className={classes.subTitle}>配送單</Typography>
-                        <Typography className={classes.subTitle_right}>總量</Typography>
-                        <Typography className={classes.subTitle_right}>已裝箱</Typography>
-                        <Typography className={classes.subTitle_right}>待裝箱</Typography>
+                <Grid container item md={12} lg={6} style={{ height: `100%`, backgroundColor: "#F7F7F7" }}>
+                    <Grid item xs={1}></Grid>
+                    <Grid container direction="column" item xs={10} className={classes.first_block}>
+                        <Typography className={classes.subTitle} style={{ paddingLeft: "10px", width: "40%" }}>配送單</Typography>
+                        <div className={classes.right_block}>
+                            {subTitleRight.map((title, index) => <Typography className={classes.subTitle_right} key={index} style={{ width: "33%" }} >{title}</Typography>)}
+                        </div>
                     </Grid>
-                    <Grid item xs={2}></Grid>
+                    <Grid item xs={1}></Grid>
+                    <div className={classes.second_block}>
+                        <Grid container direction="row">
+                            <Grid item xs={1}></Grid>
+                            <Grid container direction="column" item xs={10}>
+                                <ContainerInfo />
+                            </Grid>
+                            <Grid item xs={1}></Grid>
+                        </Grid>
+                    </div>
                 </Grid>
             </Grid>
-
-        </div>
+            <div className={classes.add_button}>
+                <Fab color="#F5F5F5" aria-label="Add">
+                    <Add />
+                </Fab>
+            </div>
+        </div >
     )
 }
 

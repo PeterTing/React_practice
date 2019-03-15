@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import pageManager from './pageManager.js'
-import todoListItemState from './TodoListItemStateManager.js'
+import todoList from './TodoList.js'
 
 const reducers = combineReducers({
     pageManager,
-    todoListItemState
+    todoList
 })
 
 export default reducers
