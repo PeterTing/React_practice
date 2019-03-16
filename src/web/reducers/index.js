@@ -1,11 +1,19 @@
-import { CHANGE_PAGE } from '../actions'
+import { CHANGE_PAGE, PAGE } from '../actions/types'
 
-const initialState = "TODO_LIST"
+const pages = Object.values(PAGE).map(page => page);
+
+const initialState = {
+    pages,
+    currentPage: PAGE.TODOLIST
+}
 
 function PageManager(state = initialState, action) {
     switch (action.type) {
         case CHANGE_PAGE:
-            return action.page
+            return {
+                ...state,
+                currentPage: action.page
+            }
         default:
             return state
     }
