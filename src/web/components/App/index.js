@@ -1,8 +1,8 @@
 import React from 'react'
-import { Drawer, CssBaseline, AppBar, IconButton, Typography, Hidden } from '@material-ui/core'
+import { CssBaseline } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import SideBar from './SubComponent/SideBar'
 import Header from './SubComponent/Header'
+import StyledDrawer from './SubComponent/StyledDrawer'
 
 const styles = theme => ({
 	root: {
@@ -48,17 +48,7 @@ const App = (props) => {
 		<div className={classes.root}>
 			<CssBaseline />
 			<Header />
-			<nav className={classes.drawer}>
-				<Hidden xsDown implementation="css">
-					<Drawer
-						variant="permanent"
-						open
-					>
-						<SideBar />
-					</Drawer>
-				</Hidden>
-				{/* <TodoList /> */}
-			</nav>
+			<StyledDrawer />>
 			<div className={classes.info}>
 				jhi55
 			</div>
