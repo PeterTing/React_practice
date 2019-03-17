@@ -1,9 +1,10 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Grid, Fab } from '@material-ui/core';
+import { Typography, Grid, Fab, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button } from '@material-ui/core';
 import Todo from './todo'
 import ContainerInfo from './ContainerInfo'
 import { Add } from '@material-ui/icons';
+import AddButton from './AddButton';
 
 const styles = theme => ({
     root: {
@@ -78,7 +79,7 @@ const styles = theme => ({
 const subTitleRight = ["總量", "已裝箱", "待裝箱"]
 
 const TodoList = (props) => {
-    const { classes} = props
+    const { classes, isOpen, handleClose, handleOpen } = props
 
     return (
         <div className={classes.root}>
@@ -124,9 +125,7 @@ const TodoList = (props) => {
                 </Grid>
             </Grid>
             <div className={classes.add_button}>
-                <Fab color="#F5F5F5" aria-label="Add">
-                    <Add />
-                </Fab>
+                <AddButton isOpen={isOpen} handleClose={handleClose} handleOpen={handleOpen} />
             </div>
         </div >
     )

@@ -12,3 +12,12 @@ export const PAGE = Object.freeze({
 
 export const TODO_TOGGLE = 'TODO_TOGGLE'
 export const ADD_TOGGLE = 'ADD_TOGGLE'
+export const GET_STORE = Object.freeze({
+    REQUEST: "request",
+    RECEIVE: "receive",
+    STORE: "store",
+    USER: "user",
+    CONTAINER: "container",
+    CONSOLE: "console",
+    ACTIVITY: "activity"
+})
