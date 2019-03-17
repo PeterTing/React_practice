@@ -3,7 +3,7 @@ import { List, ListItem, ListItemIcon, ListItemText, CssBaseline, Typography, } 
 import { StoreMallDirectory, SupervisorAccount, InsertInvitation, LocalDrink, LocalShipping, Home, Build } from '@material-ui/icons'
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
-import { PAGE } from '../../../../actions/types';
+import { PAGE } from '../../../../actions/type';
 
 const styles = theme => ({
     toolbar: theme.mixins.toolbar,

@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import SideBar from '../../components/App/SubComponent/SideBar'
 import { changePage } from '../../actions'
 
-const mapStateToProps = state => {
-    return {
-        selectedPage: state.currentPage
+const mapStateToProps = state => (
+    {
+        selectedPage: state.sideBar.currentPage
     }
-}
+)
 
 const mapDispatchToProps = dispatch => {
     return {

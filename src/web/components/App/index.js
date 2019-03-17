@@ -35,7 +35,7 @@ const appBarHeight = 64
 
 const App = (props) => {
 	const { classes } = props;
-
+	console.log(props)
 	return (
 		<Router>
 			<div className={classes.root}>

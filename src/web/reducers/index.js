@@ -1,22 +1,6 @@
-import { CHANGE_PAGE, PAGE } from '../actions/types'
+import sideBar from './sideBar.js'
+import todoList from './todoList.js'
+import { combineReducers } from 'redux';
 
-const pages = Object.values(PAGE).map(page => page);
+export default combineReducers({sideBar, todoList})
 
-const initialState = {
-    pages,
-    currentPage: PAGE.TODOLIST
-}
-
-function PageManager(state = initialState, action) {
-    switch (action.type) {
-        case CHANGE_PAGE:
-            return {
-                ...state,
-                currentPage: action.page
-            }
-        default:
-            return state
-    }
-}
-
-export default PageManager
