@@ -50,6 +50,8 @@
     "koa-router": "^7.4.0",
     "koa-session": "^5.10.1",
     "koa-static-server": "^1.4.0",
+    "material-ui-next-pickers": "0.0.20",
+    "material-ui-pickers": "^2.2.4",
     "mini-css-extract-plugin": "0.5.0",
     "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",

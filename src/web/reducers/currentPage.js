@@ -4,7 +4,7 @@ const initialState = {
     currentPage: PAGE.TODOLIST
 }
 
-const sideBar = (state=initialState, action) => {
+const currentPage = (state=initialState, action) => {
     switch (action.type) {
         case CHANGE_PAGE:
             return {
@@ -16,5 +16,5 @@ const sideBar = (state=initialState, action) => {
     }
 }
 
-export default sideBar
-export const sideBarInitialState = initialState
+export default currentPage
+export const currentPageInitialState = initialState

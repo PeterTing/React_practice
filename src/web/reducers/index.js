@@ -1,6 +1,6 @@
-import sideBar from './sideBar.js'
+import currentPage from './currentPage.js'
 import todoList from './todoList.js'
 import { combineReducers } from 'redux';
 
-export default combineReducers({sideBar, todoList})
+export default combineReducers({currentPage, todoList})
 

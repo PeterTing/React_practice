@@ -1,18 +1,18 @@
 import { connect } from 'react-redux'
 
 import SideBar from '../../components/App/SubComponent/SideBar'
-import { changePage } from '../../actions'
+import { PageAction } from '../../actions'
 
 const mapStateToProps = state => (
     {
-        selectedPage: state.sideBar.currentPage
+        selectedPage: state.currentPage
     }
 )
 
 const mapDispatchToProps = dispatch => {
     return {
         onClick: page => {
-            dispatch(changePage(page))
+            dispatch(PageAction.changePage(page))
         }
     }
 }

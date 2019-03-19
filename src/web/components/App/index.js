@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { Drawer, CssBaseline, Hidden } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import SideBarAction from '../../containers/SideBarAction'
+import SideBarContainer from '../../containers/SideBarContainer'
 import Header from './SubComponent/Header'
 import { router } from './router'
 
@@ -47,7 +47,7 @@ const App = (props) => {
 							variant="permanent"
 							open
 						>
-							<SideBarAction />
+							<SideBarContainer />
 						</Drawer>
 					</Hidden>
 					{/* <TodoList /> */}

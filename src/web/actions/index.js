@@ -1,24 +1,15 @@
 import { CHANGE_PAGE, TODOLIST } from './type.js'
 
-function makeActionCreator(type, ...argNames) {
-    return function (...args) {
-        const action = { type }
-        argNames.forEach((arg, index) => {
-            action[argNames[index]] = args[index]
-        })
-        return action
-    }
+export const PageAction = {
+    changePage: (page) => (
+        {
+            type: CHANGE_PAGE,
+            page
+        }
+    )
 }
 
-export const changePage = makeActionCreator(CHANGE_PAGE, 'page')
-
-export const TodoListActions = {
-    selectFilterSegment: (index) => (
-        {
-            type: TODOLIST.SELECT_FILTER_SEGMENT,
-            selectedIndex: index
-        }
-    ),
+export const TodoListAction = {
     changeViewMode: (mode) => (
         {
             type: TODOLIST.CHANGE_VIEW_MODE,

@@ -2,24 +2,19 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles'
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
-const styles = theme => ({
-    formControl: {
-        width: '100%'
-    }
-})
-
 const storeList = ["hihi", "byebye"]
 
 const StoreSelector = (props) => {
-    const { classes } = props
-
     return (
-        <div>
-            <FormControl className={classes.formControl}>
+        <div className={props.className} style={{background: '#f5f5f5'}}>
+            <FormControl style={{width: '100%'}}>
                 <InputLabel htmlFor="controlled-open-select">店鋪名稱</InputLabel>
                 <Select
                     inputProps={{
                         name: 'store'
+                    }}
+                    style={{
+                        height: '40px'
                     }}    
                 >
                     {storeList.map((store, index) => <MenuItem key={index} value={store}>{store}</MenuItem>)}
@@ -29,4 +24,4 @@ const StoreSelector = (props) => {
     )
 }
 
-export default withStyles(styles)(StoreSelector)
+export default StoreSelector
