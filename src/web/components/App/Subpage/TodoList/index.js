@@ -3,11 +3,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Fab, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, Paper } from '@material-ui/core';
 import Todo from './todo'
 import ContainerInfo from './ContainerInfo'
-import { Add, LooksOne, ArrowDropDown} from '@material-ui/icons';
+import { Add, LooksOne, Close} from '@material-ui/icons';
 import StoreSelector from './StoreSelector';
 import AddButton from './AddButton';
 import TodoListCell from './TodoListCell'
 import { DateFormatInput } from 'material-ui-next-pickers';
+import Popup from './Popup';
+import StepOne from './Popup/StepOne';
+import StepTwo from './Popup/StepTwo'
 
 const styles = theme => ({
     root: { 
@@ -77,11 +80,6 @@ const styles = theme => ({
         position: 'fixed',
         right: '41px',
         bottom: '24px'
-    },
-    selector: {
-        marginLeft: '10%',
-        marginRight: '10%',
-        width: '80%',
     }
 })
 
@@ -90,6 +88,8 @@ const tableHeader = ['配送單', '預計配送日', '待裝箱', '待配送', '
 
 const TodoList = (props) => {
     const { classes, isOpen, handleClose, handleOpen } = props
+
+    const step = StepTwo('樹有風')
 
     return (
         <div className={classes.root}>
@@ -146,40 +146,12 @@ const TodoList = (props) => {
             <div className={classes.add_button}>
                 <AddButton onOpen={handleOpen} />
             </div>
-            <Dialog
-                fullWidth={true}
-                width={`xs`}
-                open={true}
-                onClose={handleClose}
-                aria-labelledby="form-dialog-title"
-                className={classes.dialog}
-            >
-                <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-                <DialogContent style={{padding: '0'}}>
-                    <Paper elevation={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                        <LooksOne />
-                        <Typography variant="h6" component="h3">選擇配送店家</Typography>
-                    </Paper>
-                    <StoreSelector className={classes.selector}/>
-                    <div className={classes.selector} style={{background: '#f5f5f5'}}>
-                        <DateFormatInput fullWidth label='預計配送' value={new Date()} InputProps={{style: {height: '40px'}}} />
-                    </div>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={(e) => {
-                        e.preventDefault()
-                        handleClose()
-                    }} color="primary">
-                        Cancel
-                </Button>
-                    <Button onClick={(e) => {
-                        e.preventDefault()
-                        handleClose()
-                    }} color="primary">
-                        Subscribe
-                </Button>
-                </DialogActions>
-            </Dialog>
+            <Popup
+                title={step.title}
+                icon={step.icon}
+                dialogContent={<step.content/>}
+                dialogActions={<step.actions/>}
+            />
         </div >
     )
 }
