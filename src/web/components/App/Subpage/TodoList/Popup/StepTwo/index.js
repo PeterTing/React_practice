@@ -1,6 +1,8 @@
 import React from 'react'
 import { LooksTwo } from '@material-ui/icons';
 import { Grid, Button, withStyles } from '@material-ui/core';
+import Box from './Box';
+import OverviewItem from './OverviewItem';
 
 const styles = () => ({
     filledButton: {
@@ -25,21 +27,33 @@ const styles = () => ({
         lineHeight: '16px',
         padding: '40px',
         paddingTop: '10px',
-        paddingBottom: '10px'
+        paddingBottom: '10px',
+        color: '#9BD6E4'
+    },
+    container: {
+        height: '100%'
+    },
+    box_list: {
+        padding: '0',
+        overflowY: 'scroll'
     }
 })
 
 const content = (props) => {
+    const { classes } = props
     return (
-        <Grid container direction='row'>
-            <Grid md={12} lg={6} >
-                <ul>
-                    <li>123</li>
+        <Grid container direction='row' alignItems='flex-start' className={classes.container}>
+            <Grid md={12} lg={6}  style={{
+            height: 'calc(100%-80px)'
+        }}>
+                <ul className={classes.box_list} style={{borderRight: '1px solid #d4d4d4', height: '100%'}}>
+                    <Box></Box>
+                    <Box></Box>
                 </ul>
             </Grid>
             <Grid md={12} lg={6} >
-                <ul>
-                    <li>123</li>
+                <ul className={classes.box_list} style={{padding: '20px', margin: '0'}}>
+                    <OverviewItem/>
                 </ul>
             </Grid>
         </Grid>
@@ -62,7 +76,7 @@ const actions = (props) => {
 const StepTwo = (storeName) => ({
     title: storeName,
     icon: <LooksTwo />,
-    content, 
+    content: withStyles(styles)(content), 
     actions: withStyles(styles)(actions)
 })
 

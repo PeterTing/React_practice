@@ -1,15 +1,22 @@
 import React from 'react'
-import { Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button, Paper } from '@material-ui/core'
+import { Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button, Paper, withStyles } from '@material-ui/core'
 import { Close } from '@material-ui/icons'
 
+const styles = (theme) => ({
+    dialog: {
+    }
+})
+
 const Popup = (props) => {
-    const { dialogActions, dialogContent, title, icon } = props
+    const { classes, dialogActions, dialogContent, title, icon } = props
     return (
         <Dialog
+            className={classes.dialog}
             fullWidth={true}
             maxWidth={`sm`}
             open={true}
             aria-labelledby="form-dialog-title"
+            
         >
             <DialogTitle id="form-dialog-title" style={{
                 display: 'flex', 
@@ -17,21 +24,22 @@ const Popup = (props) => {
             }}>
                 <Button><Close/></Button>
             </DialogTitle>
-            <DialogContent style={{padding: '0'}}>
                 <Paper style={{ 
                     display: 'flex', 
                     flexDirection: 'column',
                     alignItems: 'center',
                     background: '#FFFFFF',
                     marginTop: '4px',
-                    paddingTop: '20px',
-                    paddingBottom: '20px',
-                    boxShadow: '0 1px 4px 0 rgba(0,0,0,0.50)'
+                    paddingTop: '10px',
+                    paddingBottom: '10px',
+                    boxShadow: '0 1px 4px 0 rgba(0,0,0,0.50)',
+                    height: '80px'
                 }}>{
                     icon
                 }
                     <Typography variant="h6" component="h3">{title}</Typography>
-                </Paper> {
+                </Paper>
+            <DialogContent style={{padding: '0', marginTop: '4px'}}>{
                 dialogContent
             }</DialogContent>
             <DialogActions>{
@@ -41,4 +49,4 @@ const Popup = (props) => {
     )
 }
 
-export default Popup
+export default withStyles(styles)(Popup)
