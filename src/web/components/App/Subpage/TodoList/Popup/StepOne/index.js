@@ -2,7 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core'
 
-import StoreSelector from '../../StoreSelector'
+import StoreSelector from './StoreSelector'
 import { DateFormatInput } from 'material-ui-next-pickers'
 import { LooksOne } from '@material-ui/icons';
 

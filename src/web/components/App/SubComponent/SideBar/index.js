@@ -4,6 +4,7 @@ import { StoreMallDirectory, SupervisorAccount, InsertInvitation, LocalDrink, Lo
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
 import { PAGE } from '../../../../actions/type';
+import { router } from '../../router';
 
 const styles = theme => ({
     toolbar: theme.mixins.toolbar,
@@ -13,41 +14,76 @@ const styles = theme => ({
         backgroundColor: "#40B9D8"
     }
 })
-const pages = ['首頁', '店鋪', '活動', '使用者', '容器', '代辦清單', '中控台']
-const pagesInEnglist = [PAGE.HOME, PAGE.STORE, PAGE.ACTIVITY, PAGE.USER, PAGE.CONTAINER, PAGE.TODOLIST, PAGE.CONSOLE]
+
 const imgHeight = 120
 
+class SideBar extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {items: router.map((route) => ({...route, isOpen: false}))}
+        this.selectItem = this.selectItem.bind(this)
+        this.onSelectItem = props.onClick
+    }
 
-const SideBar = (props) => {
-    const { classes, onClick, selectedPage } = props
+    selectItem(item) {
+        if (item.isOpen) {
+            this.setState({ 
+                ...this.state,
+                items: this.state.items.map((route) => (
+                    route === item ?
+                        {...item, isOpen: false} :
+                        route
+            ))})
+        } else if (item.children) {
+            this.setState({
+                ...this.state, 
+                items: this.state.items.map((route) => (
+                    route === item ?
+                        {...item, isOpen: true} :
+                        route
+            ))})
+        } else {
+            this.onSelectItem(item.key)
+        }
+    }
 
-    return (
-        <div>
-            <CssBaseline />
-            <div className={classes.toolbar}>
-                <div className={classes.img}>
-                    <img src={require('../../../../../../public/img/mini_logo.svg')} alt="logo"></img>
+    render() {
+        const { classes, selectedPage } = this.props
+        const { items } = this.state
+        
+        return (
+            <div>
+                <CssBaseline />
+                <div className={classes.toolbar}>
+                    <div className={classes.img}>
+                        <img src={require('../../../../../../public/img/mini_logo.svg')} alt="logo"></img>
+                    </div>
+                    <List>
+                        {
+                            items.map((item) => (
+                                <div>
+                                    <ListItem button component={item.children ? 'div' : Link} to={item.path} onClick={() => this.selectItem(item)} selected={selectedPage === item.key} key={item.key}>
+                                        <ListItemIcon>{
+                                            item.icon
+                                        }
+                                        </ListItemIcon>
+                                        <ListItemText disableTypography primary={<Typography type="body2" variant='subtitle2' style={{ color: '#262626' }}>{item.title}</Typography>} />
+                                    </ListItem>
+                                    {
+                                        (item.children && item.isOpen ? item.children : []).map((child) => (
+                                            <ListItem button component={Link} to={child.path} onClick={() => this.selectItem(child)} selected={selectedPage === child.key} key={child.key}>
+                                                <ListItemText disableTypography primary={<Typography type="body2" variant='subtitle1' style={{ color: '#262626', paddingLeft: '6em', fontSize: '0.75rem' }}>{child.title}</Typography>}/>
+                                            </ListItem>
+                                        ))
+                                    }
+                                </div>
+                            ))
+                        }
+                    </List>
                 </div>
-                <List>
-                    {
-                        pages.map((page, index) => (
-                            <ListItem button component={Link} to={`/${pagesInEnglist[index]}`} onClick={() => onClick(page)} selected={selectedPage === page} key={page}>
-                                <ListItemIcon>{index % 6 === 0 ? <Home /> :
-                                    index % 6 === 1 ? <StoreMallDirectory /> :
-                                        index % 6 === 2 ? <InsertInvitation /> :
-                                            index % 6 === 3 ? <SupervisorAccount /> :
-                                                index % 6 === 4 ? <LocalDrink /> :
-                                                    index % 6 === 5 ? <LocalShipping /> : <Build />
-                                }
-                                </ListItemIcon>
-                                <ListItemText disableTypography primary={<Typography type="body2" style={{ color: '#262626' }}>{page}</Typography>} />
-                            </ListItem>
-                        ))
-                    }
-                </List>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default withStyles(styles)(SideBar)

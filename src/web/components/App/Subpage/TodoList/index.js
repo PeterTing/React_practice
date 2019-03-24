@@ -1,13 +1,10 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Grid, Fab, Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, Paper } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import Todo from './todo'
 import ContainerInfo from './ContainerInfo'
-import { Add, LooksOne, Close} from '@material-ui/icons';
-import StoreSelector from './StoreSelector';
 import AddButton from './AddButton';
 import TodoListCell from './TodoListCell'
-import { DateFormatInput } from 'material-ui-next-pickers';
 import Popup from './Popup';
 import StepOne from './Popup/StepOne';
 import StepTwo from './Popup/StepTwo'
@@ -86,14 +83,33 @@ const styles = theme => ({
 const subTitleRight = ["總量", "已裝箱", "待裝箱"]
 const tableHeader = ['配送單', '預計配送日', '待裝箱', '待配送', '待簽收', '已簽收', '異常']
 
-const TodoList = (props) => {
-    const { classes, isOpen, handleClose, handleOpen } = props
+const TodoList = (_children) => (props) => {
+    const { classes, handleOpen } = props
 
     const step = StepTwo('樹有風')
 
     return (
         <div className={classes.root}>
-            <Grid container direction="row" style={{height: 'calc(50% - 32px'}}>
+            {
+                <_children />
+            }
+            <div className={classes.add_button}>
+                <AddButton onOpen={handleOpen} />
+            </div>
+            <Popup
+                title={step.title}
+                icon={step.icon}
+                dialogContent={<step.content/>}
+                dialogActions={<step.actions/>}
+            />
+        </div >
+    )
+}
+
+const TodaySection = (props) => {
+    const { classes } = props
+    return (
+        <Grid container direction="row" style={{height: 'calc(50% - 32px'}}>
                 <Grid item md={12} style={{ height: "96px" }}>
                     <Typography variant="h1" className={classes.title}>今日工事</Typography>
                 </Grid >
@@ -126,34 +142,31 @@ const TodoList = (props) => {
                     </div>
                 </Grid>
             </Grid>
-            <Grid container direction="row" style={{height: 'calc(50% - 32px'}}>
-                <Grid item md={12} style={{ height: "96px" }}>
-                    <Typography variant="h1" className={classes.title}>配送單</Typography>
-                </Grid >
-                <Grid item md={12} style={{ height: "calc(100% - 96px)" }}>
-                    <table style={{width: `100%`}}>
-                        <thead>{
-                            tableHeader.map((title, i) => (
-                                <td key={i}>{title}</td>
-                            ))
-                        }</thead>
-                        <tbody>{
-                            <TodoListCell></TodoListCell>
-                        }</tbody>
-                    </table>
-                </Grid>
-            </Grid>
-            <div className={classes.add_button}>
-                <AddButton onOpen={handleOpen} />
-            </div>
-            <Popup
-                title={step.title}
-                icon={step.icon}
-                dialogContent={<step.content/>}
-                dialogActions={<step.actions/>}
-            />
-        </div >
     )
 }
 
-export default withStyles(styles)(TodoList)
+const CalendarSection = (props) => {
+    const { classes } = props
+    return (
+        <Grid container direction="row" style={{height: 'calc(50% - 32px'}}>
+            <Grid item md={12} style={{ height: "96px" }}>
+                <Typography variant="h1" className={classes.title}>配送單</Typography>
+            </Grid >
+            <Grid item md={12} style={{ height: "calc(100% - 96px)" }}>
+                <table style={{width: `100%`}}>
+                    <thead>{
+                        tableHeader.map((title, i) => (
+                            <td key={i}>{title}</td>
+                        ))
+                    }</thead>
+                    <tbody>{
+                        <TodoListCell></TodoListCell>
+                    }</tbody>
+                </table>
+            </Grid>
+        </Grid>
+    )
+}
+
+export const Today = withStyles(styles)(TodoList(withStyles(styles)(TodaySection)))
+export const Calendar = withStyles(styles)(TodoList(withStyles(styles)(CalendarSection)))

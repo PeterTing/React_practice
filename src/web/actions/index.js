@@ -1,4 +1,4 @@
-import { CHANGE_PAGE, TODOLIST } from './type.js'
+import { CHANGE_PAGE } from './type.js'
 
 export const PageAction = {
     changePage: (page) => (
@@ -10,10 +10,4 @@ export const PageAction = {
 }
 
 export const TodoListAction = {
-    changeViewMode: (mode) => (
-        {
-            type: TODOLIST.CHANGE_VIEW_MODE,
-            mode
-        }
-    )
 }

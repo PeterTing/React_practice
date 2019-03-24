@@ -4,6 +4,21 @@ import { Close } from '@material-ui/icons'
 
 const styles = (theme) => ({
     dialog: {
+
+    },
+    dialog_title: {
+        display: '',
+        alignItems: 'center'
+    },
+    dialog_title_word: {
+        display: 'inline-flex',
+        padding: '6px 8px',
+        lineHeight: '1.667rem',
+        flex: '0 0 50%'
+    },
+    dialog_close: {
+        right: '0',
+        flex: '0 0 50%'
     }
 })
 
@@ -18,11 +33,9 @@ const Popup = (props) => {
             aria-labelledby="form-dialog-title"
             
         >
-            <DialogTitle id="form-dialog-title" style={{
-                display: 'flex', 
-                flexDirection: 'row-reverse'
-            }}>
-                <Button><Close/></Button>
+            <DialogTitle id="form-dialog-title" className={classes.dialog_title} >
+                <div className={classes.dialog_title_word}>選擇配送單</div>
+                <Button className={classes.dialog_close}><Close/></Button>
             </DialogTitle>
                 <Paper style={{ 
                     display: 'flex', 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles'
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 const storeList = ["hihi", "byebye"]

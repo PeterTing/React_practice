@@ -35,7 +35,6 @@ const appBarHeight = 64
 
 const App = (props) => {
 	const { classes } = props;
-	console.log(props)
 	return (
 		<Router>
 			<div className={classes.root}>
@@ -54,7 +53,11 @@ const App = (props) => {
 				</nav>
 				<div className={classes.info}>
 					<Switch>
-						{router.map((route, index) => <Route key={index} exact path={route.path} component={route.component} />)}
+						{router.map((route, index) => (
+							[route, ...(route.children ? route.children : [])].map((item, i) => (
+								<Route key={index+0.1*i} exact path={item.path} component={item.component} />
+							))
+						))}
 					</Switch>
 				</div>
 			</div>

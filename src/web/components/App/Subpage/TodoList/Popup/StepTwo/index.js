@@ -43,7 +43,7 @@ const content = (props) => {
     const { classes } = props
     return (
         <Grid container direction='row' alignItems='flex-start' className={classes.container}>
-            <Grid md={12} lg={6}  style={{
+            <Grid md={6} lg={6} xs={12} sm={12} style={{
             height: 'calc(100%-80px)'
         }}>
                 <ul className={classes.box_list} style={{borderRight: '1px solid #d4d4d4', height: '100%'}}>
@@ -51,7 +51,7 @@ const content = (props) => {
                     <Box></Box>
                 </ul>
             </Grid>
-            <Grid md={12} lg={6} >
+            <Grid md={6} lg={6} xs={12} sm={12} >
                 <ul className={classes.box_list} style={{padding: '20px', margin: '0'}}>
                     <OverviewItem/>
                 </ul>
