@@ -43,11 +43,12 @@ const content = (props) => {
 }
 
 const actions = (props) => {
-    const { classes } = props
+    const { classes, stepOnChange } = props
     return (
         <div>
             <Button onClick={(e) => {
                 e.preventDefault()
+                stepOnChange()
             }} className={ classes.filledButton }>
                 下一步
             </Button>
@@ -59,7 +60,7 @@ const StepOne = {
     title: '選擇配送店家',
     icon: <LooksOne/>,
     content: withStyles(styles)(content),
-    actions
+    actions: withStyles(styles)(actions)
 }
 
 export default StepOne

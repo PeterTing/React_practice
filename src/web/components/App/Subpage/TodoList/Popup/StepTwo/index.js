@@ -61,14 +61,25 @@ const content = (props) => {
 }
 
 const actions = (props) => {
-    const { classes } = props
+    const { classes, stepOnChange, reset, submit } = props
 
     return (
         <div>
-            <Button className={classes.outlinedButton}>上一步</Button>
-            <Button className={classes.outlinedButton}>使用上次配送單</Button>
-            <Button className={classes.outlinedButton}>清除</Button>
-            <Button className={classes.filledButton}>送出</Button>
+            <Button className={classes.outlinedButton} onClick={ (e) => {
+                e.preventDefault()
+                stepOnChange()
+            }}>上一步</Button>
+            <Button className={classes.outlinedButton} onClick={ (e) => {
+                e.preventDefault()
+            }}>使用上次配送單</Button>
+            <Button className={classes.outlinedButton} onClick={ (e) => {
+                e.preventDefault()
+                reset()
+            }}>清除</Button>
+            <Button className={classes.filledButton} onClick={ (e) => {
+                e.preventDefault()
+                submit()
+            }}>送出</Button>
         </div>
     )
 }

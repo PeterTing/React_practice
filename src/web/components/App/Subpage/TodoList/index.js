@@ -1,13 +1,11 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles';
-import { Typography, Grid } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles'
+import { Typography, Grid } from '@material-ui/core'
 import Todo from './todo'
 import ContainerInfo from './ContainerInfo'
-import AddButton from './AddButton';
+import AddButton from './AddButton'
 import TodoListCell from './TodoListCell'
-import Popup from './Popup';
-import StepOne from './Popup/StepOne';
-import StepTwo from './Popup/StepTwo'
+import Popup from './Popup'
 
 const styles = theme => ({
     root: { 
@@ -83,28 +81,48 @@ const styles = theme => ({
 const subTitleRight = ["總量", "已裝箱", "待裝箱"]
 const tableHeader = ['配送單', '預計配送日', '待裝箱', '待配送', '待簽收', '已簽收', '異常']
 
-const TodoList = (_children) => (props) => {
-    const { classes, handleOpen } = props
+class _TodoList extends React.Component {
+    constructor(props) {
+        super(props)
+        this.openPopup = this.openPopup.bind(this)
+        this.state = {
+            isPopupViewOpened: false
+        }
+    }
 
-    const step = StepTwo('樹有風')
+    openPopup() {
+        this.setState({
+            ...this.state, isPopupViewOpened: true
+        })
+    }
 
-    return (
-        <div className={classes.root}>
-            {
-                <_children />
-            }
-            <div className={classes.add_button}>
-                <AddButton onOpen={handleOpen} />
-            </div>
-            <Popup
-                title={step.title}
-                icon={step.icon}
-                dialogContent={<step.content/>}
-                dialogActions={<step.actions/>}
-            />
-        </div >
-    )
+    closePopup() {
+        this.setState({
+            ...this.state, isPopupViewOpened: false
+        })
+    }
+
+    render() {
+        const { classes } = this.props
+
+        return (
+            <div className={classes.root}>
+                {
+                    this.props.children
+                }
+                <div className={classes.add_button}>
+                    <AddButton onOpen={()=>this.openPopup()} />
+                </div>
+                <Popup
+                    onClose={()=>this.closePopup()}
+                    open={this.state.isPopupViewOpened}
+                />
+            </div >
+        )
+    }
 }
+
+const TodoList = withStyles(styles)(_TodoList)
 
 const TodaySection = (props) => {
     const { classes } = props
@@ -168,5 +186,16 @@ const CalendarSection = (props) => {
     )
 }
 
-export const Today = withStyles(styles)(TodoList(withStyles(styles)(TodaySection)))
-export const Calendar = withStyles(styles)(TodoList(withStyles(styles)(CalendarSection)))
+const _Today = withStyles(styles)(TodaySection)
+const _Calendar = withStyles(styles)(CalendarSection)
+
+export const Today = () => (
+    <TodoList>
+        <_Today/>
+    </TodoList>
+)
+export const Calendar = () => (
+    <TodoList>
+        <_Calendar/>
+    </TodoList>
+)
