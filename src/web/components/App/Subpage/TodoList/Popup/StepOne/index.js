@@ -31,12 +31,12 @@ const styles = () => ({
 })
 
 const content = (props) => {
-    const { classes } = props
+    const { classes, dateOnChange, storeOnChange, dueDate, storeId } = props
     return (
         <div>
-            <StoreSelector className={classes.selector}/>
+            <StoreSelector className={classes.selector} storeId={storeId} storeOnChange={storeOnChange}/>
             <div className={classes.selector} style={{background: '#f5f5f5', marginBottom: '300px'}}>
-                <DateFormatInput fullWidth label='預計配送' value={new Date()} InputProps={{style: {height: '40px'}}} />
+                <DateFormatInput onChange={dateOnChange} fullWidth label='預計配送' value={dueDate === null ? new Date(): dueDate} InputProps={{style: {height: '40px'}}} />
             </div>
         </div>
     )

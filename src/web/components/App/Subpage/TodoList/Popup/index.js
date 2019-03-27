@@ -71,9 +71,9 @@ class Popup extends React.Component {
     }
 
     render() {
-        const { classes, open, onClose } = this.props
+        const { classes, open, onClose, boxes, dueDate, storeId } = this.props
         const { storeName, step } = this.state
-
+        console.log(this.props)
         const dialog = step === 1 ? StepOne : StepTwo(storeName)
 
         const { title, icon } =  dialog
@@ -103,7 +103,7 @@ class Popup extends React.Component {
                     <Typography variant="h6" component="h3">{title}</Typography>
                 </Paper>
                 <DialogContent style={{padding: '0', marginTop: '4px'}}>
-                    <dialog.content/>
+                    <dialog.content storeId={storeId} dueDate={dueDate} boxes={boxes} dateOnChange={this.props.selectDueDate} storeOnChange={this.props.selectDestination}/>
                 </DialogContent>
                 <DialogActions>
                     <dialog.actions stepOnChange={step === 1 ? this.goStepTwo : this.goStepOne} reset={this.clearState} submit={this.commit}/>

@@ -4,11 +4,15 @@ import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 const storeList = ["hihi", "byebye"]
 
 const StoreSelector = (props) => {
+    const { storeOnChange, storeId } = props 
     return (
         <div className={props.className} style={{background: '#f5f5f5'}}>
             <FormControl style={{width: '100%'}}>
                 <InputLabel htmlFor="controlled-open-select">店鋪名稱</InputLabel>
                 <Select
+                    onChange={ (e) =>
+                        storeOnChange(e.target.value)
+                    }
                     inputProps={{
                         name: 'store'
                     }}

@@ -40,16 +40,17 @@ const styles = () => ({
 })
 
 const content = (props) => {
-    const { classes } = props
+    const { classes, boxes } = props
     return (
         <Grid container direction='row' alignItems='flex-start' className={classes.container}>
             <Grid md={6} lg={6} xs={12} sm={12} style={{
             height: 'calc(100%-80px)'
         }}>
-                <ul className={classes.box_list} style={{borderRight: '1px solid #d4d4d4', height: '100%'}}>
-                    <Box></Box>
-                    <Box></Box>
-                </ul>
+                <ul className={classes.box_list} style={{borderRight: '1px solid #d4d4d4', height: '100%'}}>{
+                    boxes.map(box=>
+                        <Box/>
+                    )
+                }</ul>
             </Grid>
             <Grid md={6} lg={6} xs={12} sm={12} >
                 <ul className={classes.box_list} style={{padding: '20px', margin: '0'}}>
@@ -86,7 +87,7 @@ const actions = (props) => {
 
 const StepTwo = (storeName) => ({
     title: storeName,
-    icon: <LooksTwo />,
+    icon: <LooksTwo/>,
     content: withStyles(styles)(content), 
     actions: withStyles(styles)(actions)
 })

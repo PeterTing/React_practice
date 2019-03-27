@@ -5,7 +5,7 @@ import Todo from './todo'
 import ContainerInfo from './ContainerInfo'
 import AddButton from './AddButton'
 import TodoListCell from './TodoListCell'
-import Popup from './Popup'
+import PopupContainer from '../../../../containers/PopupContainer'
 
 const styles = theme => ({
     root: { 
@@ -104,7 +104,7 @@ class _TodoList extends React.Component {
 
     render() {
         const { classes } = this.props
-
+        
         return (
             <div className={classes.root}>
                 {
@@ -113,7 +113,7 @@ class _TodoList extends React.Component {
                 <div className={classes.add_button}>
                     <AddButton onOpen={()=>this.openPopup()} />
                 </div>
-                <Popup
+                <PopupContainer
                     onClose={()=>this.closePopup()}
                     open={this.state.isPopupViewOpened}
                 />

@@ -1,12 +1,22 @@
-import TodoList from '../../components/App/Subpage/TodoList'
+import { Today, Calendar } from '../../components/App/Subpage/TodoList'
 import { connect } from 'react-redux'
 
-const mapStateToProps = (state) => ({
+const mapStateToTodayProps = (state) => ({
+    
+})
+
+const mapDispatchToTodayProps = (dispatch) => ({
 
 })
 
-const mapDispatchToProps = (dispatch) => ({
+export const TodayContainer = connect(mapStateToTodayProps, mapDispatchToTodayProps)(Today)
+
+const mapStateToCalendarProps = (state) => ({
 
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
+const mapDispatchToCalendarProps = (dispatch) => ({
+
+})
+
+export const CalendarContainer = connect(mapStateToCalendarProps, mapDispatchToCalendarProps)(Calendar)
