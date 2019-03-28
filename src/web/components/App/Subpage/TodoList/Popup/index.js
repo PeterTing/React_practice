@@ -66,15 +66,17 @@ class Popup extends React.Component {
         
     }
 
-    commit() {
-
+    commit(storeId, dueDate, boxes) {
+        const submit = this.props.submitNewList
+        submit(storeId, dueDate, boxes)
     }
 
     render() {
-        const { classes, open, onClose, boxes, dueDate, storeId } = this.props
-        const { storeName, step } = this.state
-        console.log(this.props)
-        const dialog = step === 1 ? StepOne : StepTwo(storeName)
+        const { classes, open, onClose, boxes, dueDate, storeId, storeList, containers } = this.props
+        const { name } = storeList.filter(({id})=>id === storeId)[0]
+
+        const { step } = this.state
+        const dialog = step === 1 ? StepOne : StepTwo(name)
 
         const { title, icon } =  dialog
 
@@ -103,10 +105,33 @@ class Popup extends React.Component {
                     <Typography variant="h6" component="h3">{title}</Typography>
                 </Paper>
                 <DialogContent style={{padding: '0', marginTop: '4px'}}>
-                    <dialog.content storeId={storeId} dueDate={dueDate} boxes={boxes} dateOnChange={this.props.selectDueDate} storeOnChange={this.props.selectDestination}/>
+                    <dialog.content 
+                        containers={containers}
+                        storeId={storeId} 
+                        dueDate={dueDate} 
+                        boxes={boxes} 
+                        storeList={storeList} 
+                        dateOnChange={this.props.selectDueDate} 
+                        storeOnChange={this.props.selectDestination}
+                        addNewBox={this.props.addNewBox}
+                        addNewContainerType={this.props.addNewContainerType}
+                        removeBox={this.props.removeBox}
+                        selectContainerType={this.props.selectContainerType}
+                        selectContainerAmount={this.props.selectContainerAmount}
+                    />
                 </DialogContent>
                 <DialogActions>
-                    <dialog.actions stepOnChange={step === 1 ? this.goStepTwo : this.goStepOne} reset={this.clearState} submit={this.commit}/>
+                    <dialog.actions 
+                        stepOnChange={
+                            step === 1 ? 
+                                this.goStepTwo : 
+                                this.goStepOne
+                        } 
+                        reset={this.clearState} 
+                        submit={()=>
+                            this.commit(storeId, dueDate, boxes)
+                        }
+                    />
                 </DialogActions>
             </Dialog>
         )

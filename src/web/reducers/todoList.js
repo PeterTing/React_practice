@@ -45,51 +45,57 @@ const dialog = (state, action) => {
         case TODOLIST.ADD_NEW_BOX:
             return { ...state, boxes: [...state.boxes, emptyBox(action.id)]}
         case TODOLIST.ADD_NEW_CONTAINER_TYPE:
-            return { ...state, boxes: [...state.boxes, 
-                state.boxes.filter((box)=>
-                    box.id === action.boxId)
-                .map(box=>({
-                    ...box, 
-                    containerTypes: [...box.containerTypes, emptyContainerSet(action.id)]
-                })
-            )]}
+            return { 
+                ...state, 
+                boxes: [
+                    ...state.boxes.map(box=>
+                    box.id === action.boxId ?
+                        {
+                            ...box, 
+                            containerTypes: [...box.containerTypes, emptyContainerSet(action.id)]
+                        } :
+                        box
+                )]
+            }
         case TODOLIST.REMOVE_BOX:
             return { ...state, boxes: state.boxes.filter(box=>box.id !== action.boxId)}
         case TODOLIST.SELECT_CONTAINER_AMOUNT:
             return { 
                 ...state,
-                boxes: [ 
-                    ...state.boxes, 
-                    state.boxes.filter(box=>box.id === action.boxId)
-                        .map(box=>({
-                            ...box,
-                            containerTypes: [
-                                ...box.containerTypes.filter(type=>type.id !== action.containerTypeId),
-                                ...box.containerTypes.filter(type=>type.id === action.containerTypeId)
-                                    .map(type=>({
-                                        ...type, amount: action.amount
-                                    }))
-                            ]
-                        }))
-                ]
+                boxes: [
+                    ...state.boxes.map(box=>
+                    box.id === action.boxId ?
+                        {
+                            ...box, 
+                            containerTypes: box.containerTypes.map(item=>({
+                                ...item,
+                                amount: item.id === action.containerTypeId ?
+                                    Number(action.amount) :
+                                    Number(item.amount)
+                            }))
+                            
+                        } :
+                        box
+                )]
             }
         case TODOLIST.SELECT_CONTAINER_TYPE:
             return { 
                 ...state,
-                boxes: [ 
-                    ...state.boxes, 
-                    state.boxes.filter(box=>box.id === action.boxId)
-                        .map(box=>({
-                            ...box,
-                            containerTypes: [
-                                ...box.containerTypes.filter(type=>type.id !== action.containerTypeId),
-                                ...box.containerTypes.filter(type=>type.id === action.containerTypeId)
-                                    .map(type=>({
-                                        ...type, containerType: action.containerType
-                                    }))
-                            ]
-                        }))
-                ]
+                boxes: [
+                    ...state.boxes.map(box=>
+                    box.id === action.boxId ?
+                        {
+                            ...box, 
+                            containerTypes: box.containerTypes.map(item=>({
+                                ...item,
+                                containerType: item.id === action.containerTypeId ?
+                                    action.container :
+                                    item.containerType
+                            }))
+                            
+                        } :
+                        box
+                )]
             }
         case TODOLIST.SELECT_DESTINATION:
             return {
@@ -98,7 +104,7 @@ const dialog = (state, action) => {
         case TODOLIST.SELECT_DUEDATE:
             return {
                 ...state, dueDate: action.date
-            }
+            }            
         default: return state
     }
 }

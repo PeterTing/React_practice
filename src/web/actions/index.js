@@ -1,5 +1,6 @@
 import { CHANGE_PAGE, TODOLIST } from './type.js'
 import { v4 } from 'uuid'
+import API from '../api/index.js';
 
 export const PageAction = {
     changePage: (page) => ({
@@ -42,8 +43,13 @@ export const PopupDialogAction = {
         type: TODOLIST.SELECT_CONTAINER_AMOUNT,
         boxId, containerTypeId, amount
     }),
-    setBoxes: (boxes) => ({
+    setLists: (lists) => ({
         type: TODOLIST.SET_BOXES,
-        boxes
-    })
+        lists
+    }),
+    submitNewList: (phone, storeId, dueDate, boxes) => (dispatch) => {
+        API.createDeliveryList(phone, storeId, dueDate, boxes)
+            .then(console.log)
+            .catch(console.err)
+    }
 }

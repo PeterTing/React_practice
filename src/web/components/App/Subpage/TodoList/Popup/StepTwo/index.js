@@ -36,23 +36,40 @@ const styles = () => ({
     box_list: {
         padding: '0',
         overflowY: 'scroll'
+    },
+    button_container: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center'
     }
 })
 
 const content = (props) => {
-    const { classes, boxes } = props
+    const { classes, boxes, addNewBox, addNewContainerType, removeBox, containers, selectContainerAmount, selectContainerType } = props
     return (
         <Grid container direction='row' alignItems='flex-start' className={classes.container}>
-            <Grid md={6} lg={6} xs={12} sm={12} style={{
+            <Grid item md={6} lg={6} xs={12} sm={12} style={{
             height: 'calc(100%-80px)'
         }}>
                 <ul className={classes.box_list} style={{borderRight: '1px solid #d4d4d4', height: '100%'}}>{
-                    boxes.map(box=>
-                        <Box/>
+                    boxes.map((box, index)=>
+                        <Box 
+                            box={box}
+                            addNewContainerType={addNewContainerType}
+                            selectContainerAmount={selectContainerAmount}
+                            selectContainerType={selectContainerType} 
+                            removeBox={removeBox} 
+                            containers={containers} 
+                            key={index}
+                        />
                     )
-                }</ul>
+                }
+                <div className={classes.button_container}>
+                    <Button onClick={addNewBox}>新增箱子 ＋</Button>
+                </div>
+                </ul>
             </Grid>
-            <Grid md={6} lg={6} xs={12} sm={12} >
+            <Grid item md={6} lg={6} xs={12} sm={12} >
                 <ul className={classes.box_list} style={{padding: '20px', margin: '0'}}>
                     <OverviewItem/>
                 </ul>

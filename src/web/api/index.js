@@ -17,6 +17,7 @@ const uri = Object.freeze({
     login: '/users/login',
     containerList: '/containers/get/list',
     storeList: '/stores/list',
+    deliveryList: '/deliveryList/box/list',
     createDeliveryList: '/deliveryList/create/'
 })
 
@@ -38,7 +39,7 @@ const jwtFactory = {
 
 function requestConfigHeaderWrapper(...types) {
     let config = {}
-    const admin = JSON.parse(localStorage.admin)
+    const admin = localStorage.auth ? JSON.parse(localStorage.auth) : {}
     types.forEach(type => {
         switch (type) {
             case HeaderType.DEFAULT:
@@ -49,11 +50,11 @@ function requestConfigHeaderWrapper(...types) {
                 config['userApiKey'] = ''
                 return
             case HeaderType.JWT_ADD_ORDER_TIME:
-                config['Authorization'] = jwtFactory.addOrderTime(localStorage.admin.secretKey)
+                config['Authorization'] = jwtFactory.addOrderTime(admin.secretKey)
                 config['apiKey'] = admin.apiKey
                 return
             case HeaderType.JWT:
-                config['Authorization'] = jwtFactory.standard(localStorage.admin.secretKey)
+                config['Authorization'] = jwtFactory.standard(admin.secretKey)
             case HeaderType.API_KEY:
                 config['apiKey'] = admin.apiKey
                 return
@@ -80,7 +81,7 @@ function login(phone, password) {
         .then((response) => JWT.decode(response.headers.authorization))
 }
 
-function getContainerList() {
+function fetchContainerList() {
     const config = {
         headers: requestConfigHeaderWrapper(HeaderType.DEFAULT)
     }
@@ -88,7 +89,7 @@ function getContainerList() {
         .then(res => res.data)
 }
 
-function getStoreList() {
+function fetchStoreList() {
     const config = {
         headers: requestConfigHeaderWrapper(HeaderType.DEFAULT)
     }
@@ -96,16 +97,38 @@ function getStoreList() {
         .then(res => res.data)
 }
 
-function createDeliveryList(storeId, box) {
+function fetchDeliveryList() {
     const config = {
         headers: requestConfigHeaderWrapper(HeaderType.JWT)
     }
-    return axios.get(baseURL+uri.storeList, config)
+    return axios.get(baseURL+uri.deliveryList, config)
+        .then(res => res.data)
+}
+
+function createDeliveryList(phone, storeId, dueDate, boxes) {
+    const storeDict = JSON.parse(localStorage.stores)
+
+    const config = {
+        headers: requestConfigHeaderWrapper(HeaderType.JWT)
+    }
+
+    const body = {
+        phone, 
+        boxList: boxes.map(box=>({
+            boxName: storeDict.find(({id})=>id === storeId).name,
+            dueDate,
+            boxOrderContent: box.containerTypes.map((set)=>({
+                containerType: set.containerType, 
+                amount: set.amount
+            }))
+        }))
+    }
+    return axios.post(baseURL+uri.createDeliveryList+`${storeId}`, body, config)
         .then(res => res.data)
 }
 
 const API = {
-    login, getContainerList, getStoreList
+    login, fetchContainerList, fetchStoreList, fetchDeliveryList, createDeliveryList
 }
 
 export default API

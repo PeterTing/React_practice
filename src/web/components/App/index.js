@@ -42,9 +42,9 @@ API.login('0933356403', '')
 			Promise.reject(new Error('unauthorized'))
 	)
 	.then(admin => {
-		localStorage.auth = JSON.stringify(admin)
+		localStorage.auth = JSON.stringify({...admin, phone: '0933356403'})
 	})
-	.then(API.getContainerList)
+	.then(API.fetchContainerList)
 	.then(list => {
 		const containers = JSON.stringify({
 			dict: list.containerDict,
@@ -52,7 +52,7 @@ API.login('0933356403', '')
 		})
 		localStorage.containers = containers
 	})
-	.then(API.getStoreList)
+	.then(API.fetchStoreList)
 	.then(list => 
 		list['shop_data']
 			.filter(store=>store.contract.borrowable)
@@ -61,6 +61,8 @@ API.login('0933356403', '')
 	.then(list => {
 		localStorage.stores = JSON.stringify(list)
 	})
+	.then(()=>API.fetchDeliveryList())
+	.then(data=>console.log(data))
 	.catch((err) => {
 		switch (err.message) {
 			case 'unauthorized':

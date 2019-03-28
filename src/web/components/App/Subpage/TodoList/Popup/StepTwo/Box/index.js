@@ -24,21 +24,31 @@ const styles = (theme) => ({
 })
 
 const Box = (props) => {
-    const { classes } = props
+    const { classes, addNewContainerType, removeBox, box, containers, selectContainerType, selectContainerAmount } = props
+    const {id, containerTypes } = box
+
     return (
         <Paper className={classes.body}>
             <DialogTitle className={classes.title}>
-                <Button>X</Button>
+                <Button onClick={()=>removeBox(id)}>X</Button>
             </DialogTitle>
             <DialogContent className={classes.content}>
-                <ul className={classes.list}>
-                    <Item></Item>
-                    <Item></Item>
-                </ul>
+                <ul className={classes.list}>{
+                    containerTypes.map((item, index)=>
+                        <Item 
+                            boxId={id}
+                            item={item} 
+                            key={index} 
+                            containers={containers} 
+                            selectContainerAmount={selectContainerAmount} 
+                            selectContainerType={selectContainerType}
+                        />
+                    )
+                }</ul>
             </DialogContent>
             <DialogActions>
                 <div className={classes.button_container}>
-                    <Button>新增 ＋</Button>
+                    <Button onClick={()=>addNewContainerType(id)}>新增品項 ＋</Button>
                 </div>
             </DialogActions>
         </Paper>
