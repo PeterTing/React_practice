@@ -7,7 +7,7 @@ import SideBarContainer from '../../containers/SideBarContainer'
 import Header from './SubComponent/Header'
 import { router } from './router'
 
-
+import API from '../../api'
 
 const styles = theme => ({
 	root: {
@@ -35,8 +35,17 @@ const styles = theme => ({
 const drawerWidth = 240
 const appBarHeight = 64
 
+API.login('0933356403', '')
+	.then((response) => {
+		console.log(response.status)
+	})
+	.catch((err) => {
+		console.log('err'+err)
+	})
+
 const App = (props) => {
-	const { classes } = props;
+	const { classes } = props
+	
 	return (
 		<Router>
 			<div className={classes.root}>
