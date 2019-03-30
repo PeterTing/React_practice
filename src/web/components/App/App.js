@@ -7,8 +7,6 @@ import SideBarContainer from '../../containers/SideBarContainer'
 import Header from './SubComponent/Header'
 import { router } from './router'
 
-import API from '../../api'
-
 const styles = theme => ({
 	root: {
 		display: 'flex',

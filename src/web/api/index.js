@@ -127,8 +127,18 @@ function createDeliveryList(phone, storeId, dueDate, boxes) {
         .then(res => res.data)
 }
 
+const defaultErrorHandler = (err) => {
+    switch (err.message) {
+        case 'unauthorized':
+            alert('沒有權限登入後台')
+        default:
+            alert(err)
+    }
+}
+
 const API = {
-    login, fetchContainerList, fetchStoreList, fetchDeliveryList, createDeliveryList
+    login, fetchContainerList, fetchStoreList, fetchDeliveryList, createDeliveryList,
+    defaultErrorHandler
 }
 
 export default API

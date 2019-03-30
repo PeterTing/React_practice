@@ -15,7 +15,7 @@ export const RedirectAction = {
 }
 
 export const LoginAction = {
-    login: (phone, password, history) => dispatch => {
+    login: (phone, password, history) => dispatch => (
         API.login(phone, password)
             .then((response) => 
                 response.roles.admin ?
@@ -43,15 +43,8 @@ export const LoginAction = {
             .then(list => 
                 localStorage.setItem('stores', JSON.stringify(list))
             )
-            .catch((err) => {
-                switch (err.message) {
-                    case 'unauthorized':
-                        alert('沒有權限登入後台')
-                    default:
-                        alert(err)
-                }
-            })
-    },
+            .catch(API.defaultErrorHandler)
+    ),
     setPassword: (password) => ({
         type: LOGIN.SET_PASSWORD,
         password
@@ -70,7 +63,22 @@ export const PageAction = {
 }
 
 export const TodoListAction = {
-    
+    setLists: (lists) => ({
+        type: TODOLIST.SET_BOXES,
+        lists,
+        isLoading: false
+    }),
+    fetchLists: () => dispatch => (
+        API.fetchDeliveryList()
+            .then(lists => { 
+                console.log(lists)
+                return lists
+            })
+            .then(lists => 
+                dispatch(TodoListAction.setLists(lists))    
+            )
+            .catch(API.defaultErrorHandler)
+    )
 }
 
 export const PopupDialogAction = {
@@ -103,13 +111,9 @@ export const PopupDialogAction = {
         type: TODOLIST.SELECT_CONTAINER_AMOUNT,
         boxId, containerTypeId, amount
     }),
-    setLists: (lists) => ({
-        type: TODOLIST.SET_BOXES,
-        lists
-    }),
-    submitNewList: (phone, storeId, dueDate, boxes) => (dispatch) => {
+    submitNewList: (phone, storeId, dueDate, boxes) => (dispatch) => (
         API.createDeliveryList(phone, storeId, dueDate, boxes)
             .then(console.log)
             .catch(console.err)
-    }
+    )
 }

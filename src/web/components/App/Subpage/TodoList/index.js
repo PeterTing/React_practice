@@ -90,6 +90,10 @@ class _TodoList extends React.Component {
         }
     }
 
+    componentWillMount() {
+        this.props.fetchDeliveryLists()
+    }
+
     openPopup() {
         this.setState({
             ...this.state, isPopupViewOpened: true
@@ -165,6 +169,7 @@ const TodaySection = (props) => {
 
 const CalendarSection = (props) => {
     const { classes } = props
+
     return (
         <Grid container direction="row" style={{height: 'calc(50% - 32px'}}>
             <Grid item md={12} style={{ height: "96px" }}>
@@ -189,13 +194,9 @@ const CalendarSection = (props) => {
 const _Today = withStyles(styles)(TodaySection)
 const _Calendar = withStyles(styles)(CalendarSection)
 
-export const Today = () => (
-    <TodoList>
-        <_Today/>
-    </TodoList>
+export const Today = (props) => (
+    React.createElement(TodoList, props, <_Today />)
 )
-export const Calendar = () => (
-    <TodoList>
-        <_Calendar/>
-    </TodoList>
+export const Calendar = (props) => (
+    React.createElement(TodoList, props, <_Calendar/>)
 )
