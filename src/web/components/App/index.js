@@ -34,22 +34,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(_App)
 // 	.then(API.fetchStoreList)
 // 	.then(list => 
 // 		list['shop_data']
-	// 		.filter(store=>store.contract.borrowable)
-	// 		.map(store=>({id: store.id, name: store.name}))
-	// )
-	// .then(list => {
-	// 	localStorage.stores = JSON.stringify(list)
-	// })
-	// .then(()=>API.fetchDeliveryList())
-	// .then(data=>console.log(data))
-	// .catch((err) => {
-	// 	switch (err.message) {
-	// 		case 'unauthorized':
-	// 			alert('沒有權限登入後台')
-	// 		default:
-	// 			alert(err)
-	// 	}
-	// })
-
-
-
+// 			.filter(store=>store.contract.borrowable)
+// 			.map(store=>({id: store.id, name: store.name}))
+// 	)
+// 	.then(list => {
+// 		localStorage.stores = JSON.stringify(list)
+// 	})
+// 	.then(()=>API.fetchDeliveryList())
+// 	.then(data=>console.log(data))
+// 	.catch((err) => {
+// 		switch (err.message) {
+// 			case 'unauthorized':
+// 				alert('沒有權限登入後台')
+// 			default:
+// 				alert(err)
+// 		}
+// 	})

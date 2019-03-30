@@ -17,23 +17,40 @@ export const RedirectAction = {
 export const LoginAction = {
     login: (phone, password, history) => dispatch => {
         API.login(phone, password)
-        .then((response) => 
-            response.roles.admin ?
-                response.roles.admin :
-                Promise.reject(new Error('unauthorized'))
-        )
-        .then(admin => {
-            localStorage.auth = JSON.stringify({...admin, phone})
-            dispatch(RedirectAction.admin(history))
-        })
-        .catch((err) => {
-            switch (err.message) {
-                case 'unauthorized':
-                    alert('沒有權限登入後台')
-                default:
-                    alert(err)
-            }
-        })
+            .then((response) => 
+                response.roles.admin ?
+                    response.roles.admin :
+                    Promise.reject(new Error('unauthorized'))
+            )
+            .then(admin => {
+                localStorage.setItem('auth', JSON.stringify({...admin, phone}))
+                dispatch(RedirectAction.admin(history))
+            })
+            .then(API.fetchContainerList)
+            .then(list => {
+                const containers = JSON.stringify({
+                    dict: list.containerDict,
+                    type: list.containerType
+                })
+                localStorage.setItem('containers', containers)
+            })
+            .then(API.fetchStoreList)
+            .then(list => 
+                list['shop_data']
+                    .filter(store=>store.contract.borrowable)
+                    .map(store=>({id: store.id, name: store.name}))
+            )
+            .then(list => 
+                localStorage.setItem('stores', JSON.stringify(list))
+            )
+            .catch((err) => {
+                switch (err.message) {
+                    case 'unauthorized':
+                        alert('沒有權限登入後台')
+                    default:
+                        alert(err)
+                }
+            })
     },
     setPassword: (password) => ({
         type: LOGIN.SET_PASSWORD,

@@ -1,17 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import App from '../App'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import LoginContainer from '../../containers/LoginContainer';
+import Login from '../Login'
 
 const theme = createMuiTheme({
     backgroundColor: '#40B9D8',
     typography: {
-        // Use the system font.
-        fontFamily:
-            "Roboto, Noto Sans TC"
+        fontFamily: "Roboto, Noto Sans TC"
     },
     palette: {
         primary: {
@@ -23,13 +21,13 @@ const theme = createMuiTheme({
 })
 
 const Root = ({ store }) => {
-    const isLoggedIn = localStorage.auth === undefined
     return(
     <MuiThemeProvider theme={theme}>
         <Provider store={store} >
-            <Router forceRefresh>
+            <Router>
                 <Switch>
-                    <Route path="/Login" component={LoginContainer} />
+                    <Redirect exact from='/' to='/login'/>
+                    <Route path="/login" component={Login} />
                     <Route path="/admin/" component={App} />
                 </Switch>
             </Router>

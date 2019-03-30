@@ -73,8 +73,8 @@ class Popup extends React.Component {
 
     render() {
         const { classes, open, onClose, boxes, dueDate, storeId, storeList, containers } = this.props
-        const { name } = storeList.filter(({id})=>id === storeId)[0]
-
+        const { name } = storeList.find(({id})=>id === storeId)
+        
         const { step } = this.state
         const dialog = step === 1 ? StepOne : StepTwo(name)
 

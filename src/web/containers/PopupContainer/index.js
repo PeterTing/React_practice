@@ -4,12 +4,12 @@ import Popup from '../../components/App/Subpage/TodoList/Popup'
 
 const mapStateToProps = (state) => {
     const { dialog } = state.todoList
-    const storeList = JSON.parse(localStorage.stores)
-    const containers = JSON.parse(localStorage.containers).type
+    const storeList = JSON.parse(localStorage.getItem('stores'))
+    const containers = JSON.parse(localStorage.getItem('containers')).type
     return ({
-    ...dialog,
-    storeList,
-    containers
+        ...dialog,
+        storeList,
+        containers
 })}
 
 const mapDispatchToProps = (dispatch) => ({

@@ -3,15 +3,14 @@ import todoList from './todoList.js'
 import login from './login.js'
 import { combineReducers } from 'redux';
 import { REDIRECT } from '../actions/type.js';
-import { history } from '../_helper/history.js'
 
 const rootReducer = (state, action) => {
     switch (action.type) {
         case REDIRECT.LOGIN:
-            action.history.push('/Login')
+            action.history.push('/login')
             return state
         case REDIRECT.ADMIN:
-            action.history.push('/admin/#/')
+            action.history.push('/admin')
             return state
         default: 
             return combineReducers({currentPage, todoList, login})(state, action)
