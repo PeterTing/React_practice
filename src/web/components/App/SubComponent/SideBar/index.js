@@ -60,8 +60,8 @@ class SideBar extends React.Component {
                     </div>
                     <List>
                         {
-                            items.map((item) => (
-                                <div>
+                            items.map((item, index) => (
+                                <div key={index}>
                                     <ListItem button component={item.children ? 'div' : Link} to={item.path} onClick={() => this.selectItem(item)} selected={selectedPage === item.key} key={item.key}>
                                         <ListItemIcon>{
                                             item.icon

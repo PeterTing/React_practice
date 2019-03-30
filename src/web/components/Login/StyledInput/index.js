@@ -46,14 +46,14 @@ const StyleInput = withStyles({
     }
 })(Input);
 
-const StyledInput = ({ classes, type, required = false, pattern = "", autoComplete, children }) => {
+const StyledInput = ({ classes, type, required = false, pattern = "", autoComplete, children, value, onValueChange }) => {
     return (
         <FormControl margin="normal" required fullWidth>
             <InputLabel className={classes.inputLabel} htmlFor={type} required={required} classes={{
                 root: classes.cssLabel,
                 focused: classes.cssFocused,
             }}>{children}</InputLabel>
-            <StyleInput className={classes.input} id={type} name={type} autoComplete={autoComplete} pattern={pattern} />
+            <StyleInput className={classes.input} id={type} name={type} autoComplete={autoComplete} pattern={pattern} value={value} onChange={(e)=>onValueChange(e.target.value)}/>
         </FormControl>
     )
 }

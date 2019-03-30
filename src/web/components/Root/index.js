@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import App from '../App'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Login from '../Login';
+import LoginContainer from '../../containers/LoginContainer';
 
 const theme = createMuiTheme({
     backgroundColor: '#40B9D8',
@@ -22,20 +22,22 @@ const theme = createMuiTheme({
     }
 })
 
-const Root = ({ store }) => (
+const Root = ({ store }) => {
+    const isLoggedIn = localStorage.auth === undefined
+    return(
     <MuiThemeProvider theme={theme}>
-        <Provider store={store}>
-            <Router>
+        <Provider store={store} >
+            <Router forceRefresh>
                 <Switch>
-                    <Route exact path="/Login" component={Login} />
-                    <Route exact path="/" component={App} />
+                    <Route path="/Login" component={LoginContainer} />
+                    <Route path="/admin/" component={App} />
                 </Switch>
             </Router>
         </Provider>
     </MuiThemeProvider>
-)
+)}
 
-Root.prototype = {
+Root.propTypes = {
     store: PropTypes.object.isRequired
 }
 

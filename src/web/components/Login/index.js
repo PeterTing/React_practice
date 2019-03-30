@@ -1,12 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-// import './style.scss'
+
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, FormControlLabel, Button, Checkbox, } from '@material-ui/core';
 import StyledInput from './StyledInput'
-import { Link } from 'react-router-dom'
-
-const MyLink = props => <Link to="/" {...props} />
 
 const styles = theme => ({
     root: {
@@ -53,8 +50,9 @@ const styles = theme => ({
 })
 
 const Login = (props) => {
-    const { classes } = props
-
+    const { classes, login, setPhone, setPassword } = props
+    const { phone, password, history } = props
+    
     return (
         <div className={classes.root}>
             <img className={classes.img} src={require('../../../../public/img/logo.png')} alt="logo"></img>
@@ -63,8 +61,8 @@ const Login = (props) => {
             </div>
             <div className={classes.form}>
                 <form className={classes.container} noValidate>
-                    <StyledInput type="tel" autoComplete="tel" required={true}>請輸入手機號碼</StyledInput>
-                    <StyledInput type="password" autoComplete="current-password">請輸入密碼</StyledInput>
+                    <StyledInput type="tel" autoComplete="tel" required={true} value={phone} onValueChange={setPhone}>請輸入手機號碼</StyledInput>
+                    <StyledInput type="password" autoComplete="current-password" value={password} onValueChange={setPassword}>請輸入密碼</StyledInput>
 
                     <FormControlLabel
                         control={<Checkbox value="Remember me" color="primary" style={{
@@ -76,8 +74,7 @@ const Login = (props) => {
                         }}
                     />
                     <Button
-                        type="submit"
-                        component={MyLink}
+                        onClick={()=>login(phone, password, history)}
                         fullWidth
                         variant="contained"
                         color="primary"

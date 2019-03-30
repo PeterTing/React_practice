@@ -1,6 +1,49 @@
-import { CHANGE_PAGE, TODOLIST } from './type.js'
+import { CHANGE_PAGE, TODOLIST, REDIRECT, LOGIN } from './type.js'
 import { v4 } from 'uuid'
-import API from '../api/index.js';
+
+import API from '../api';
+
+export const RedirectAction = {
+    login: (history) => ({
+        type: REDIRECT.LOGIN,
+        history
+    }),
+    admin: (history) => ({
+        type: REDIRECT.ADMIN,
+        history
+    })
+}
+
+export const LoginAction = {
+    login: (phone, password, history) => dispatch => {
+        API.login(phone, password)
+        .then((response) => 
+            response.roles.admin ?
+                response.roles.admin :
+                Promise.reject(new Error('unauthorized'))
+        )
+        .then(admin => {
+            localStorage.auth = JSON.stringify({...admin, phone})
+            dispatch(RedirectAction.admin(history))
+        })
+        .catch((err) => {
+            switch (err.message) {
+                case 'unauthorized':
+                    alert('沒有權限登入後台')
+                default:
+                    alert(err)
+            }
+        })
+    },
+    setPassword: (password) => ({
+        type: LOGIN.SET_PASSWORD,
+        password
+    }),
+    setPhone: (phone) => ({
+        type: LOGIN.SET_PHONE,
+        phone
+    })
+}
 
 export const PageAction = {
     changePage: (page) => ({

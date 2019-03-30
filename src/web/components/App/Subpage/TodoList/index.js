@@ -172,9 +172,9 @@ const CalendarSection = (props) => {
             </Grid >
             <Grid item md={12} style={{ height: "calc(100% - 96px)" }}>
                 <table style={{width: `100%`}}>
-                    <thead>{
+                    <thead align='left'>{
                         tableHeader.map((title, i) => (
-                            <td key={i}>{title}</td>
+                            <th key={i}>{title}</th>
                         ))
                     }</thead>
                     <tbody>{

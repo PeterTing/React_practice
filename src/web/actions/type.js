@@ -1,5 +1,16 @@
 export const CHANGE_PAGE = 'CHANGE_PAGE'
 
+export const REDIRECT = Object.freeze({
+    LOGIN: 'REDIRECT_LOGIN',
+    ADMIN: 'REDIRECT_ADMIN'
+})
+
+export const LOGIN = Object.freeze({
+    LOGIN: 'LOGIN_LOGIN',
+    SET_PHONE: 'LOGIN_SET_PHONE',
+    SET_PASSWORD: 'LOGIN_SET_PASSWORD'
+})
+
 export const PAGE = Object.freeze({
     /* Main Page*/
     HOME: "home",
