@@ -1,11 +1,11 @@
 import React from 'react'
 
-const OverviewItem = (props) => {
+const OverviewItem = ({name, amount}) => {
     return (
         <div style={{
             display: 'flex',
             flexDirection: 'row-reverse'
-        }}>123 x 123</div>
+        }}>{`${name + ' x ' + amount}`}</div>
     )
 }
 

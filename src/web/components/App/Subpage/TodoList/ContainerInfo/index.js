@@ -18,18 +18,17 @@ const styles = theme => ({
     }
 })
 
-const items = ["今日工事", "待辦事項"]
-
 const Todo = (props) => {
-    const { classes } = props
+    const { classes, data, name } = props
+
     return (
         <List component="div" style={{ paddingTop: '10px' }}>
-            <ListItem style={{ backgroundColor: "#F0F0F0", display: 'flex', justifyContent: 'start', height: "72px" }}>
-                <ListItemText disableTypography primary={<Typography className={classes.styledFont}>12oz 玻璃杯</Typography>} style={{ width: "40%" }} />
+            <ListItem style={{ backgroundColor: "transparent", display: 'flex', justifyContent: 'start', height: "72px", borderBottom: '1px solid #E0E0E0' }}>
+                <ListItemText disableTypography primary={<Typography className={classes.styledFont}>{name}</Typography>} style={{ width: "40%" }} />
                 <div className={classes.amount}>
-                    <ListItemText disableTypography primary={<Typography className={classes.styledFont}>33</Typography>} style={{ width: '33%', padding: 0 }} />
-                    <ListItemText disableTypography primary={<Typography className={classes.styledFont}>33</Typography>} style={{ width: '33%', padding: 0 }} />
-                    <ListItemText disableTypography primary={<Typography className={classes.styledFont}>33</Typography>} style={{ width: '33%', padding: 0 }} />
+                    <ListItemText disableTypography primary={<Typography className={classes.styledFont}>{data.total}</Typography>} style={{ width: '33%', padding: 0 }} />
+                    <ListItemText disableTypography primary={<Typography className={classes.styledFont}>{data.packed}</Typography>} style={{ width: '33%', padding: 0 }} />
+                    <ListItemText disableTypography primary={<Typography className={classes.styledFont}>{Math.max(0, data.total-data.packed)}</Typography>} style={{ width: '33%', padding: 0 }} />
                 </div>
             </ListItem>
         </List>

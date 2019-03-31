@@ -36,7 +36,13 @@ const mapDispatchToProps = (dispatch) => ({
     },
     submitNewList: (storeId, dueDate, boxes) => {
         const phone = JSON.parse(localStorage.auth).phone
-        dispatch(PopupDialogAction.submitNewList(phone, storeId, dueDate, boxes))
+        return dispatch(PopupDialogAction.submitNewList(phone, storeId, dueDate, boxes))
+    },
+    clearDialog: () => {
+        dispatch(PopupDialogAction.clearDialog())
+    },
+    loadPrevDialog: () => {
+        dispatch(PopupDialogAction.loadPrevDialog())
     }
 })
 

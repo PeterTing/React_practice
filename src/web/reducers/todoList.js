@@ -3,7 +3,7 @@ import { v4 } from 'uuid'
 
 const initialState = {
     dialog: emptyOrder(),
-    boxes: []
+    lists: []
 }
 
 function emptyOrder (id = v4(), storeId = 0, dueDate = null, boxes = []) {
@@ -26,6 +26,9 @@ function emptyContainerSet (id = v4(), containerType='', amount=0) {
     
 const todoList = (state=initialState, action) => {
     switch (action.type) {
+        case TODOLIST.LOAD_PREV_DIALOG:
+        case TODOLIST.SAVE_DIALOG:
+        case TODOLIST.CLEAR_DIALOG:
         case TODOLIST.ADD_NEW_BOX:
         case TODOLIST.ADD_NEW_CONTAINER_TYPE:
         case TODOLIST.REMOVE_BOX:
@@ -34,8 +37,8 @@ const todoList = (state=initialState, action) => {
         case TODOLIST.SELECT_DESTINATION:
         case TODOLIST.SELECT_DUEDATE:
             return { ...state, dialog: dialog(state.dialog, action)}
-        case TODOLIST.SET_BOXES:
-            return { ...state, boxes: action.boxes}
+        case TODOLIST.SET_LISTS:
+            return { ...state, lists: action.lists}
         default: return state
     }
 }
@@ -57,8 +60,16 @@ const dialog = (state, action) => {
                         box
                 )]
             }
+        case TODOLIST.CLEAR_DIALOG:
+            return emptyOrder()
+        case TODOLIST.SAVE_DIALOG:
+            localStorage['prevDialog'] = JSON.stringify(state)
+            return state
+        case TODOLIST.LOAD_PREV_DIALOG:
+            let prev = JSON.parse(localStorage.getItem('prevDialog'))
+            return prev ? prev : state
         case TODOLIST.REMOVE_BOX:
-            return { ...state, boxes: state.boxes.filter(box=>box.id !== action.boxId)}
+            return { ...state, boxes: state.boxes.filter(box=>!action.boxIds.includes(box.id))}
         case TODOLIST.SELECT_CONTAINER_AMOUNT:
             return { 
                 ...state,

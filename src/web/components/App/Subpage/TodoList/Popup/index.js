@@ -40,6 +40,7 @@ class Popup extends React.Component {
         this.goStepOne = this.goStepOne.bind(this)
         this.goStepTwo = this.goStepTwo.bind(this)
         this.clearState = this.clearState.bind(this)
+        this.loadPrev = this.loadPrev.bind(this)
         this.commit = this.commit.bind(this)
 
         this.state = {
@@ -63,12 +64,20 @@ class Popup extends React.Component {
     }
 
     clearState() {
-        
+        this.props.clearDialog()
     }
 
     commit(storeId, dueDate, boxes) {
         const submit = this.props.submitNewList
         submit(storeId, dueDate, boxes)
+            .then(()=>{
+                this.props.onReload()
+                this.props.onClose()
+            })
+    }
+
+    loadPrev() {
+        this.props.loadPrevDialog()
     }
 
     render() {
@@ -126,7 +135,8 @@ class Popup extends React.Component {
                             step === 1 ? 
                                 this.goStepTwo : 
                                 this.goStepOne
-                        } 
+                        }
+                        loadPrev={ this.loadPrev } 
                         reset={this.clearState} 
                         submit={()=>
                             this.commit(storeId, dueDate, boxes)

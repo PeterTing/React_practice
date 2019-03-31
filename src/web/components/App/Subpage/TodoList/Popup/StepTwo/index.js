@@ -46,6 +46,16 @@ const styles = () => ({
 
 const content = (props) => {
     const { classes, boxes, addNewBox, addNewContainerType, removeBox, containers, selectContainerAmount, selectContainerType } = props
+    const map = {}
+    boxes.forEach((box)=>{
+        const containerTypes = box.containerTypes
+        containerTypes.forEach(({amount, containerType})=>{
+            let current = Number(map[containerType])
+            if (!current) current = 0
+            current += Number(amount ? amount : 0)
+            map[containerType] = current
+        })  
+    })
     return (
         <Grid container direction='row' alignItems='flex-start' className={classes.container}>
             <Grid item md={6} lg={6} xs={12} sm={12} style={{
@@ -71,7 +81,9 @@ const content = (props) => {
             </Grid>
             <Grid item md={6} lg={6} xs={12} sm={12} >
                 <ul className={classes.box_list} style={{padding: '20px', margin: '0'}}>
-                    <OverviewItem/>
+                    {
+                        Object.entries(map).map(([key, value], index) => <OverviewItem key={index} name={key} amount={value}/>)
+                    }
                 </ul>
             </Grid>
         </Grid>
@@ -79,7 +91,7 @@ const content = (props) => {
 }
 
 const actions = (props) => {
-    const { classes, stepOnChange, reset, submit } = props
+    const { classes, stepOnChange, reset, submit, loadPrev } = props
 
     return (
         <div>
@@ -89,6 +101,7 @@ const actions = (props) => {
             }}>上一步</Button>
             <Button className={classes.outlinedButton} onClick={ (e) => {
                 e.preventDefault()
+                loadPrev()
             }}>使用上次配送單</Button>
             <Button className={classes.outlinedButton} onClick={ (e) => {
                 e.preventDefault()

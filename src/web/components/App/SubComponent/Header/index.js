@@ -35,7 +35,8 @@ const appBarHeight = 64
 
 const Header = (props) => {
     const { classes } = props
-
+	const phone = JSON.parse(localStorage.getItem('auth')).phone
+	const structuredPhone = phone.slice(0, 4) + '-' + phone.slice(4, 7) + '-' + phone.slice(7)
     return (
         <AppBar position="fixed" className={classes.appBar}>
 				<SearchField />
@@ -50,7 +51,7 @@ const Header = (props) => {
 				</IconButton>
 
 				<Typography variant="subtitle2" noWrap className={classes.userInfo}>
-					0905-519-292
+					{structuredPhone}
 				</Typography>
 
 				<IconButton

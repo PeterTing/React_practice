@@ -85,6 +85,7 @@ class _TodoList extends React.Component {
     constructor(props) {
         super(props)
         this.openPopup = this.openPopup.bind(this)
+        this.closePopup = this.closePopup.bind(this)
         this.state = {
             isPopupViewOpened: false
         }
@@ -108,7 +109,7 @@ class _TodoList extends React.Component {
 
     render() {
         const { classes } = this.props
-        
+
         return (
             <div className={classes.root}>
                 {
@@ -119,6 +120,7 @@ class _TodoList extends React.Component {
                 </div>
                 <PopupContainer
                     onClose={()=>this.closePopup()}
+                    onReload={this.props.fetchDeliveryLists}
                     open={this.state.isPopupViewOpened}
                 />
             </div >
@@ -128,47 +130,81 @@ class _TodoList extends React.Component {
 
 const TodoList = withStyles(styles)(_TodoList)
 
+const makeTodayStatistcsHashMap = lists => {
+    const object = {}
+    const boxes = lists.flatMap(list=>list.boxObjs)
+        
+    boxes
+        .flatMap(box=>box.orderContent)
+        .forEach(({amount, containerType}) => {
+            if (object[containerType]) {
+                object[containerType].total += amount
+                return
+            }
+
+            object[containerType] = { total: amount, packed: 0 }
+        })
+
+    boxes
+        .flatMap(box=>box.deliverContent)
+        .forEach(({amount, containerType}) => {
+            if (object[containerType]) {
+                object[containerType].packed += amount
+            }
+
+            object[containerType] = { total: 0, packed: amount }
+        })
+
+    return object
+}
+
 const TodaySection = (props) => {
-    const { classes } = props
+    const { classes, lists } = props
+
     return (
-        <Grid container direction="row" style={{height: 'calc(50% - 32px'}}>
-                <Grid item md={12} style={{ height: "96px" }}>
-                    <Typography variant="h1" className={classes.title}>今日工事</Typography>
-                </Grid >
-                <Grid container item md={12} lg={6} style={{ height: `100%`, backgroundColor: "#F7F7F7", padding: '10px' }}>
-                    <Grid container direction="column" item xs={12} className={classes.first_block}>
-                        <Typography className={classes.subTitle} style={{ paddingLeft: "10px", width: "50%" }}>配送單</Typography>
-                        <Typography className={classes.subTitle}>狀態</Typography>
-                    </Grid>
-                    <div className={classes.second_block}>
-                        <Grid container direction="row">
-                            <Grid container direction="column" item xs={12}>
-                                <Todo />
-                            </Grid>
-                        </Grid>
-                    </div>
+        <Grid container direction="row">
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ height: "96px" }}>
+                <Typography variant="h1" className={classes.title}>今日工事</Typography>
+            </Grid >
+            <Grid container item xs={12} md={12} lg={6} style={{ height: `100%`, backgroundColor: "#F7F7F7", padding: '10px' }}>
+                <Grid container direction="column" item xs={12} className={classes.first_block}>
+                    <Typography className={classes.subTitle} style={{ paddingLeft: "10px", width: "50%" }}>配送單</Typography>
+                    <Typography className={classes.subTitle}>狀態</Typography>
                 </Grid>
-                <Grid container item md={12} lg={6} style={{ height: `100%`, backgroundColor: "#F7F7F7", padding: '10px' }}>
-                    <Grid container direction="column" item xs={12} className={classes.first_block}>
-                        <Typography className={classes.subTitle} style={{ paddingLeft: "10px", width: "40%" }}>配送單</Typography>
-                        <div className={classes.right_block}>
-                            {subTitleRight.map((title, index) => <Typography className={classes.subTitle_right} key={index} style={{ width: "33%" }} >{title}</Typography>)}
-                        </div>
+                <div className={classes.second_block}>
+                    <Grid container direction="row">
+                        <Grid container direction="column" item xs={12}>{
+                            lists.map((list, index)=>(
+                                <Todo list={list} key={index}/>
+                            ))
+                        }</Grid>
                     </Grid>
-                    <div className={classes.second_block}>
-                        <Grid container direction="row">
-                            <Grid container direction="column" item xs={12}>
-                                <ContainerInfo />
-                            </Grid>
-                        </Grid>
-                    </div>
-                </Grid>
+                </div>
             </Grid>
+            <Grid container item xs={12} sm={12} md={12} lg={6} xl={6} style={{ height: `100%`, backgroundColor: "#F7F7F7", padding: '10px' }}>
+                <Grid container direction="column" item xs={12} className={classes.first_block}>
+                    <Typography className={classes.subTitle} style={{ paddingLeft: "10px", width: "40%" }}>類別</Typography>
+                    <div className={classes.right_block}>
+                        {subTitleRight.map((title, index) => <Typography className={classes.subTitle_right} key={index} style={{ width: "33%" }} >{title}</Typography>)}
+                    </div>
+                </Grid>
+                <div className={classes.second_block}>
+                    <Grid container direction="row">
+                        <Grid container direction="column" item xs={12}> {
+                            Object.entries(makeTodayStatistcsHashMap(lists)).map(([key, value], index) => (
+                                <ContainerInfo data={value} name={key} key={index}/>
+                            ))
+                            
+                        }</Grid>
+                    </Grid>
+                </div>
+            </Grid>
+        </Grid>
     )
 }
 
 const CalendarSection = (props) => {
-    const { classes } = props
+    const { classes, scheduleMap } = props
 
     return (
         <Grid container direction="row" style={{height: 'calc(50% - 32px'}}>
@@ -176,14 +212,23 @@ const CalendarSection = (props) => {
                 <Typography variant="h1" className={classes.title}>配送單</Typography>
             </Grid >
             <Grid item md={12} style={{ height: "calc(100% - 96px)" }}>
-                <table style={{width: `100%`}}>
+                <table style={{
+                    width: `100%`,
+                    border: 'none',
+                    // borderSpacing: '0',
+                    borderCollapse: 'collapse'
+                }}>
                     <thead align='left'>{
                         tableHeader.map((title, i) => (
-                            <th key={i}>{title}</th>
+                            <th style={{
+                                height: '45px'
+                            }} key={i}>{title}</th>
                         ))
                     }</thead>
                     <tbody>{
-                        <TodoListCell></TodoListCell>
+                        scheduleMap.map((data, index)=>(
+                            <TodoListCell key={index} data={data}/>
+                        ))
                     }</tbody>
                 </table>
             </Grid>
@@ -195,8 +240,8 @@ const _Today = withStyles(styles)(TodaySection)
 const _Calendar = withStyles(styles)(CalendarSection)
 
 export const Today = (props) => (
-    React.createElement(TodoList, props, <_Today />)
+    React.createElement(TodoList, props, <_Today lists={props.lists}/>)
 )
 export const Calendar = (props) => (
-    React.createElement(TodoList, props, <_Calendar/>)
+    React.createElement(TodoList, props, <_Calendar scheduleMap={props.scheduleMap}/>)
 )

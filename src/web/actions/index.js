@@ -64,16 +64,12 @@ export const PageAction = {
 
 export const TodoListAction = {
     setLists: (lists) => ({
-        type: TODOLIST.SET_BOXES,
+        type: TODOLIST.SET_LISTS,
         lists,
         isLoading: false
     }),
     fetchLists: () => dispatch => (
         API.fetchDeliveryList()
-            .then(lists => { 
-                console.log(lists)
-                return lists
-            })
             .then(lists => 
                 dispatch(TodoListAction.setLists(lists))    
             )
@@ -99,9 +95,9 @@ export const PopupDialogAction = {
         id: v4(), 
         boxId
     }),
-    removeBox: (boxId) => ({
+    removeBox: (...boxIds) => ({
         type: TODOLIST.REMOVE_BOX,
-        boxId
+        boxIds
     }),
     selectContainerType: (boxId, containerTypeId, container) => ({
         type: TODOLIST.SELECT_CONTAINER_TYPE,
@@ -114,6 +110,19 @@ export const PopupDialogAction = {
     submitNewList: (phone, storeId, dueDate, boxes) => (dispatch) => (
         API.createDeliveryList(phone, storeId, dueDate, boxes)
             .then(console.log)
+            .then(()=>{
+                dispatch(PopupDialogAction.saveDialog())
+                dispatch(PopupDialogAction.clearDialog())
+            })
             .catch(console.err)
-    )
+    ),
+    clearDialog: () => ({
+        type: TODOLIST.CLEAR_DIALOG
+    }),
+    saveDialog: () => ({
+        type: TODOLIST.SAVE_DIALOG
+    }),
+    loadPrevDialog: () => ({
+        type: TODOLIST.LOAD_PREV_DIALOG
+    })
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { withStyles, Paper, DialogTitle, Button, DialogContent, DialogActions } from '@material-ui/core';
+import {Delete} from '@material-ui/icons'
 import Item from './Item';
 
 const styles = (theme) => ({
@@ -8,7 +9,9 @@ const styles = (theme) => ({
         width: 'calc(100%-20px)'
     },
     title: {
-        padding: '0px'
+        padding: '0px',
+        display: 'flex',
+        flexDirection: 'row-reverse'
     },
     content: {
         paddingBottom: '0'
@@ -30,7 +33,7 @@ const Box = (props) => {
     return (
         <Paper className={classes.body}>
             <DialogTitle className={classes.title}>
-                <Button onClick={()=>removeBox(id)}>X</Button>
+                <Button onClick={()=>removeBox(id)}><Delete/></Button>
             </DialogTitle>
             <DialogContent className={classes.content}>
                 <ul className={classes.list}>{
