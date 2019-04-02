@@ -1,5 +1,6 @@
 {
   "name": "my-app",
+  "homepage": "https://app.goodtogo.tw/backstagereact",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
