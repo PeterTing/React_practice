@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "homepage": "https://app.goodtogo.tw/backstagereact",
+  "homepage": "https://backstage.goodtogo.tw/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -93,6 +93,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
+    "deploy": "rsync -ravze 'ssh -i ~/GoodToGo.pem' --exclude '.git/' --exclude 'node_modules/' build/* ubuntu@master.goodtogo.tw:/home/ubuntu/GoodToGo_Backstage",
     "localTest": "echo \"Debudding Mode\" & set DEBUG=goodtogo_backstage:* & set PORT=3040 & set NODE_ENV=\"testing\" & nodemon"
   },
   "nodemonConfig": {

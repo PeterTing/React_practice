@@ -26,6 +26,7 @@ const styles = theme => ({
 		width: `calc(100% - ${drawerWidth}px)`,
 		height: `calc(100% - ${appBarHeight}px)`,
 		marginTop: `${appBarHeight}px`,
+		overflowY: 'scroll'
 	}
 })
 

@@ -42,7 +42,6 @@ const Item = (props) => {
             <FormControl className={ classes.item }>
                 <TextField
                     onChange={e=>selectContainerAmount(boxId, id, e.target.value)}
-                    value={Number(amount)}
                     type='number'
                     inputProps={{
                         style:{
@@ -55,7 +54,7 @@ const Item = (props) => {
                     }}  
                     label='品項數量'
                     id="standard-bare"
-                    defaultValue="Bare"
+                    defaultValue={Number(amount)}
                     margin='dense'
                 />
             </FormControl>

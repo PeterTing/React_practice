@@ -41,7 +41,7 @@ const styles = theme => ({
 
 const TodoListCell = ({data, classes}) => {
     const storeName = data[0].storeName
-    const dueDate = new Date(data[0].dueDate).toDateString()
+    const dueDate = new Date(data[0].dueDate).toLocaleDateString(undefined, {month: '2-digit', day: '2-digit'})
     const created = data.filter(box=>box.status === BoxStatus.CREATED).length
     const boxing = data.filter(box=>box.status === BoxStatus.BOXING).length
     const delivery = data.filter(box=>box.status === BoxStatus.DELIVERY).length

@@ -17,6 +17,10 @@ export const RedirectAction = {
 export const LoginAction = {
     login: (phone, password, history) => dispatch => (
         API.login(phone, password)
+            .then(r=>{
+                console.log(r)
+                return r
+            })
             .then((response) => 
                 response.roles.admin ?
                     response.roles.admin :
